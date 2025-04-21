@@ -37,7 +37,7 @@ Este blog es un espacio donde comparto conocimiento, proyectos y reflexiones sob
 
 ## 📸 Captura del sitio
 
-screenshotblog.jpg
+screenshotblog.png
 
 > Podés ver la evolución de este proyecto en tiempo real. ¡Estoy aprendiendo y construyendo al mismo tiempo!
 
