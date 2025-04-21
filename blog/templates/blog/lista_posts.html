@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% block title %}Inicio | sualba.dev{% endblock %}
+{% block content %}
+
+    {% for post in posts %}
+        <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
+            <h2 class="titulo-post clickable">{{ post.titulo }}</h2>
+            <div class="contenido oculto">
+                <p class="meta">{{ post.fecha_publicacion }}</p>
+                <div>{{ post.contenido }}</div>
+            </div>
+        </article>
+    {% empty %}
+        <p>No hay publicaciones todavía.</p>
+    {% endfor %}
+
+    {% if posts.has_other_pages %}
+    <div class="paginacion">
+        {% if posts.has_previous %}
+            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page=1">« Primera</a>
+            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.previous_page_number }}">‹ Anterior</a>
+        {% endif %}
+
+        <span class="pagina-actual">Página {{ posts.number }} de {{ posts.paginator.num_pages }}</span>
+
+        {% if posts.has_next %}
+            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.next_page_number }}">Siguiente ›</a>
+            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.paginator.num_pages }}">Última »</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+{% endblock %}

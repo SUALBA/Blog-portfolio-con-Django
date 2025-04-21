@@ -1,0 +1,77 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Sobre mí | sualba.dev{% endblock %}
+{% block content %}
+
+<section class="sobre-mi">
+    <img src="{% static 'blog/hero.jpg' %}" alt="Mi Foto" class="avatar-sobre-mi">
+    <h2>¡Hola! Soy SU ALBA 👋</h2>
+    <p>Soy desarrolladora web apasionada por la tecnología, la inteligencia artificial, el diseño y el aprendizaje constante. Me encanta crear proyectos que mezclen creatividad con código.</p>
+    <p>Actualmente, me estoy especializando con entusiasmo en el área de <strong>ciberseguridad</strong>, con certificaciones en <em>respuesta a incidentes de seguridad</em> y <em>seguridad en la industria</em>, lo que me permite abordar la protección digital con una mirada actual y estratégica.</p>
+
+    <h3 class="titulo-animado">🚀 Tecnologías que me apasionan</h3>
+
+    <ul class="skills">
+        <li class="skill-item">🔐 Cyberseguridad</li>
+        <li class="skill-item">🐍 Python</li>
+        <li class="skill-item">⚡ JavaScript</li>
+        <li class="skill-item">⚛️ React</li>
+        <li class="skill-item">🐳 Docker</li>
+        <li class="skill-item">🎨 HTML y CSS</li>
+        <li class="skill-item">🅰️ Angular</li>
+        <li class="skill-item">🌐 Gestión de Redes</li>
+        <li class="skill-item">🤖 ChatGPT & IAs</li>
+        <li class="skill-item">🧠 Desarrollo Web</li>
+        <li class="skill-item">📣 Marketing Digital</li>
+        <li class="skill-item">💻 Terminal & GitHub</li>
+    </ul>
+
+    <div class="enlaces-contacto">
+        <a href="https://github.com/SUALBA" target="_blank" class="btn-hero">GitHub</a>
+    </div>
+</section>
+
+<section class="comentarios">
+    <h3>💬 ¿Quieres dejarme un mensaje?</h3>
+    {% if enviado %}
+        <p class="gracias">¡Gracias por tu mensaje! 💌</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+
+{% if mensajes_aprobados %}
+    <section class="mensajes-aprobados">
+        <h4>📬 Mensajes públicos</h4>
+        {% for m in mensajes_aprobados %}
+            <article class="mensaje">
+                <p><strong>{{ m.nombre|default:"Anónimo" }}</strong> escribió:</p>
+                <blockquote>{{ m.mensaje }}</blockquote>
+                <small>{{ m.fecha|date:"d/m/Y H:i" }}</small>
+            </article>
+        {% endfor %}
+    </section>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

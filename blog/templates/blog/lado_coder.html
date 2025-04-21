@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Código de Vida | sualba.dev{% endblock %}
+{% block content %}
+<blockquote class="frase-coder">“A veces, el mejor código no se escribe con teclas, sino con experiencias.”</blockquote>
+
+<section class="lado-coder">
+    <h2 class="manifiesto">
+        Pensamientos, aprendizajes y reflexiones desde el código... y más allá.
+    </h2>
+
+    {% for post in posts %}
+        <article class="post-coder">
+            <h2 class="titulo-post clickable">{{ post.titulo }}</h2>
+            <div class="contenido oculto">
+                <p class="meta">{{ post.fecha_publicacion }}</p>
+                <div>{{ post.contenido }}</div>
+            </div>
+        </article>
+    {% empty %}
+        <p>No hay publicaciones todavía.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

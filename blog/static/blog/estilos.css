@@ -1,0 +1,526 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Contenedor general */
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+    background-color: #1e1e2f;
+    padding: 20px 0;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.site-header .logo {
+    color: #54dfd4;
+    text-align: center;
+    font-size: 3.2em;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+.nav a {
+    color: #8783e5;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: #842c84;
+}
+
+/* Posts */
+.content {
+    padding-bottom: 60px;
+}
+
+.post-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+}
+
+.post-card h2 {
+    color: #222;
+    margin-bottom: 10px;
+    font-size: 1.6em;
+}
+
+.post-card .meta {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post-card .contenido {
+    font-size: 1.05em;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #1e1e2f;
+    color: #ccc;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 40px;
+}
+
+/* Categorías (para personalizar cada zona luego) */
+/* Colores por categoría (bordes visuales a la izquierda) */
+
+.categoria-html { border-left: 6px solid #e34c26; }
+.categoria-css { border-left: 6px solid #2965f1; }
+.categoria-js { border-left: 6px solid #f7df1e; }
+.categoria-react { border-left: 6px solid #61dbfb; }
+.categoria-vue { border-left: 6px solid #42b883; }
+.categoria-angular { border-left: 6px solid #dd0031; }
+.categoria-backend { border-left: 6px solid #5c6bc0; }
+.categoria-docker { border-left: 6px solid #0db7ed; }
+.categoria-terminal { border-left: 6px solid #333333; }
+.categoria-python { border-left: 6px solid #306998; }
+.categoria-chatgpt { border-left: 6px solid #10a37f; }
+.categoria-ia { border-left: 6px solid #2e2e2e; }
+.categoria-cyber { border-left: 6px solid #00c853; }
+.categoria-startup { border-left: 6px solid #ff6f00; }
+.categoria-excel { border-left: 6px solid #217346; }
+.categoria-salesforce { border-left: 6px solid #00a1e0; }
+.categoria-code { border-left: 6px solid #6d4c41; }
+
+
+.clickable {
+    cursor: pointer;
+    color: #1e88e5;
+    transition: color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.clickable:hover {
+    color: #0d47a1;
+}
+
+.oculto {
+    display: none;
+}
+.filtro-tema {
+    display: inline-block;
+    background-color: #c3e2ea;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+
+.filtro-tema:hover {
+    background-color: #ddd;
+}
+
+.filtro-tema.active {
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+}
+
+.hero {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.hero-text h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.hero-text .brand {
+    color: #61dbfb;
+    font-weight: bold;
+}
+
+.hero-text .frase {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.btn-hero {
+    background-color: #4A90E2;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-hero:hover {
+    background-color: #357ABD;
+}
+
+.sobre-mi {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.avatar-sobre-mi {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+.skills {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.skills li {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.enlaces-contacto {
+    margin-top: 30px;
+}
+.skills .destacada {
+    background-color: #00c853;
+    color: white;
+}
+.manifiesto {
+    font-style: italic;
+    color: #6d4c41;
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+
+.lado-coder {
+    background-color: #fdf6f0;
+    padding: 40px 20px;
+    border-radius: 12px;
+}
+
+.manifiesto {
+    font-size: 1.4em;
+    font-style: italic;
+    color: #6d4c41;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.post-coder {
+    background-color: #78bce3;
+    border-left: 6px solid #6d4c41;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.post-coder h2 {
+    color: #4e342e;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.post-coder .contenido {
+    margin-top: 10px;
+}
+
+.paginacion {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1em;
+}
+
+.paginacion a {
+    display: inline-block;
+    margin: 0 8px;
+    padding: 6px 12px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.paginacion a:hover {
+    background-color: #ddd;
+}
+
+.pagina-actual {
+    display: inline-block;
+    margin: 0 12px;
+    font-weight: bold;
+}
+
+.titulo-animado {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 3px dashed #ffa726;
+    animation: rebote 1s ease-out;
+}
+
+@keyframes rebote {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes shine {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+
+.skill-item {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.skill-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*mejorar los campos del formulario de contacto para que se vean integrados con tu diseño actual*/
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+form button[type="submit"] {
+    background-color: #64c5db;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e64a19;
+}
+
+/*Mensaje de agradecimiento con animación */
+.gracias {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    animation: fadeIn 0.6s ease;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (max-width: 600px) {
+    .skills li {
+        font-size: 0.9em;
+        padding: 6px 10px;
+    }
+
+    .post-card, .post-coder {
+        padding: 15px;
+    }
+
+    .titulo-animado {
+        font-size: 1.3em;
+    }
+
+    .hero-img {
+        width: 120px;
+        height: 120px;
+    }
+}
+/* sección especial para Contacto y Comentarios, usando comentarios visuales como separadores.*/
+/* ============================= */
+/* 📝 SECCIÓN: Contacto y Mensajes */
+/* ============================= */
+
+.comentarios, .mensajes-aprobados {
+    margin-top: 40px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.comentarios h3 {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    color: #333;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+form button[type="submit"] {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e64a19;
+}
+
+.gracias {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    animation: fadeIn 0.6s ease;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mensajes-aprobados {
+    margin-top: 40px;
+}
+
+.mensajes-aprobados h4 {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+.mensajes-aprobados article.mensaje {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border-left: 4px solid #ff5722;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+blockquote {
+    font-style: italic;
+    margin: 0 0 5px 0;
+    color: #444;
+}
+
+.filtro-tema {
+    color: #1e1e2f; /* Azul oscuro, por ejemplo */
+}
+

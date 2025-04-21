@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | sualba.dev</title>
+    <link rel="stylesheet" href="{% static 'blog/estilos.css' %}">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1 class="logo">sualba.dev</h1>
+            {% if request.path == '/' %}
+            <nav class="nav">
+                <a href="/?categoria=all" class="filtro-tema {% if categoria_seleccionada == 'all' %}active{% endif %}">Todos los temas</a>
+                <a href="/?categoria=html" class="filtro-tema {% if categoria_seleccionada == 'html' %}active{% endif %}">HTML</a>
+                <a href="/?categoria=css" class="filtro-tema {% if categoria_seleccionada == 'css' %}active{% endif %}">CSS</a>
+                <a href="/?categoria=js" class="filtro-tema {% if categoria_seleccionada == 'js' %}active{% endif %}">JavaScript</a>
+                <a href="/?categoria=react" class="filtro-tema {% if categoria_seleccionada == 'react' %}active{% endif %}">React</a>
+                <a href="/?categoria=vue" class="filtro-tema {% if categoria_seleccionada == 'vue' %}active{% endif %}">Vue</a>
+                <a href="/?categoria=angular" class="filtro-tema {% if categoria_seleccionada == 'angular' %}active{% endif %}">Angular</a>
+                <a href="/?categoria=backend" class="filtro-tema {% if categoria_seleccionada == 'backend' %}active{% endif %}">Backend</a>
+                <a href="/?categoria=docker" class="filtro-tema {% if categoria_seleccionada == 'docker' %}active{% endif %}">Docker</a>
+                <a href="/?categoria=terminal" class="filtro-tema {% if categoria_seleccionada == 'terminal' %}active{% endif %}">Terminal / GitHub</a>
+                <a href="/?categoria=python" class="filtro-tema {% if categoria_seleccionada == 'python' %}active{% endif %}">Python</a>
+                <a href="/?categoria=chatgpt" class="filtro-tema {% if categoria_seleccionada == 'chatgpt' %}active{% endif %}">ChatGPT</a>
+                <a href="/?categoria=ia" class="filtro-tema {% if categoria_seleccionada == 'ia' %}active{% endif %}">Inteligencia Artificial</a>
+                <a href="/?categoria=cyber" class="filtro-tema {% if categoria_seleccionada == 'cyber' %}active{% endif %}">Cyberseguridad</a>
+                <a href="/?categoria=startup" class="filtro-tema {% if categoria_seleccionada == 'startup' %}active{% endif %}">Startups</a>
+                <a href="/?categoria=excel" class="filtro-tema {% if categoria_seleccionada == 'excel' %}active{% endif %}">Excel</a>
+                <a href="/?categoria=salesforce" class="filtro-tema {% if categoria_seleccionada == 'salesforce' %}active{% endif %}">Salesforce</a>
+                <a href="/?categoria=code" class="filtro-tema {% if categoria_seleccionada == 'code' %}active{% endif %}">El lado Coder</a>
+            </nav>
+            
+          {% endif %}
+        </div>
+    </header>
+
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="/sobre-mi/">Sobre mí</a>
+        <a href="/codigo-de-vida/">☕ Código de Vida</a>
+    </nav>
+    
+    {% if request.path == '/' %}
+    <section class="hero">
+        <div class="hero-content">
+            <img src="{% static 'blog/hero.jpg' %}" alt="Hero Image" class="hero-img">
+            <div class="hero-text">
+                <h2>Bienvenido a <span class="brand">sualba.dev</span></h2>
+                <p class="frase">Donde el código, las ideas y la vida se entrelazan.</p>
+                <a href="/?categoria=all" class="btn-hero">Explorar artículos</a>
+
+                
+                
+            </div>
+        </div>
+    </section>
+    
+    {% endif %}
+
+    <main class="container content" id="posts">
+
+        {% block content %}{% endblock %}
+
+            <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
+                <h2  class="titulo-post clickable">
+                    {% if post.categoria == "html" %}🟧{% elif post.categoria == "css" %}🟦{% elif post.categoria == "js" %}💛
+                    {% elif post.categoria == "react" %}⚛️{% elif post.categoria == "vue" %}🍃{% elif post.categoria == "angular" %}🅰️
+                    {% elif post.categoria == "backend" %}🖥️{% elif post.categoria == "docker" %}🐳
+                    {% elif post.categoria == "terminal" %}💻{% elif post.categoria == "python" %}🐍
+                    {% elif post.categoria == "chatgpt" %}🤖{% elif post.categoria == "ia" %}🧠
+                    {% elif post.categoria == "cyber" %}🔐{% elif post.categoria == "startup" %}🚀
+                    {% elif post.categoria == "excel" %}📊{% elif post.categoria == "salesforce" %}☁️
+                    {% elif post.categoria == "code" %}🧘{% endif %}
+                    {{ post.titulo }}
+                </h2>
+                
+                <div class="contenido oculto">
+                    <p class="meta">{{ post.fecha_publicacion }}</p>
+                    <div>{{ post.contenido }}</div>
+                </div>
+            </article>
+            
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ now|date:"Y" }} sualba.dev | Hecho con ❤️ y Python</p>
+            <p>
+                <a href="https://github.com/SUALBA" target="_blank">🔗 Ver mi GitHub</a>
+            </p>
+        </div>
+    </footer>
+    
+
+    <script>
+    
+
+        // Mostrar solo los posts correctos al cargar según la URL
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoria = urlParams.get('categoria') || 'all';
+
+    // Mostrar los posts correctos
+    document.querySelectorAll('.post-card').forEach(post => {
+        const cat = post.dataset.categoria;
+        if (categoria === 'all' || cat === categoria) {
+            post.style.display = 'block';
+        } else {
+            post.style.display = 'none';
+        }
+    });
+
+    // Activar el filtro visualmente
+    document.querySelectorAll('.filtro-tema').forEach(f => {
+        f.classList.remove('active');
+        if (f.dataset.categoria === categoria) {
+            f.classList.add('active');
+        }
+    });
+});
+
+        // Acordeón (mostrar/ocultar contenido del post)
+        document.querySelectorAll('.clickable').forEach(titulo => {
+            titulo.addEventListener('click', () => {
+                const contenido = titulo.nextElementSibling;
+                contenido.classList.toggle('oculto');
+            });
+        });
+    
+        // Filtro dinámico por categoría
+        document.querySelectorAll('.filtro-tema').forEach(filtro => {
+            filtro.addEventListener('click', () => {
+                const categoria = filtro.dataset.categoria;
+    
+                // Estilo visual de botón activo
+                document.querySelectorAll('.filtro-tema').forEach(f => f.classList.remove('active'));
+                filtro.classList.add('active');
+    
+                // Mostrar posts según categoría
+                document.querySelectorAll('.post-card').forEach(post => {
+                    if (categoria === 'all' || post.dataset.categoria === categoria) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mostrar artículos al hacer clic en "Explorar artículos"
+document.querySelector('.btn-hero').addEventListener('click', () => {
+    // Activar botón "Todos los temas"
+    document.querySelectorAll('.filtro-tema').forEach(f => f.classList.remove('active'));
+    const botonTodos = document.querySelector('.filtro-tema[data-categoria="all"]');
+    if (botonTodos) botonTodos.classList.add('active');
+
+    // Mostrar todos los posts
+    document.querySelectorAll('.post-card').forEach(post => {
+        post.style.display = 'block';
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const titulo = document.querySelector('.titulo-animado');
+    if (titulo) {
+        setTimeout(() => {
+            titulo.classList.add('visible');
+        }, 300);
+    }
+});
+// Animar habilidades cuando entren en pantalla
+document.addEventListener('DOMContentLoaded', () => {
+    const habilidades = document.querySelectorAll('.skill-item');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Solo una vez
+            }
+        });
+    }, {
+        threshold: 0.2 // Cuando el 20% sea visible
+    });
+
+    habilidades.forEach(item => {
+        observer.observe(item);
+    });
+});
+
+
+    </script>
+    
+
+</body>
+</html>
