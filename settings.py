@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-^n73b_z@jfy%z9^eso(+(_ei-q!_4wh4pvwb+shefg*q04=g5g
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['sualba.dev', 'www.sualba.dev']
+ALLOWED_HOSTS = ['sualba.dev', 'www.sualba.dev', 'blog-sualba.onrender.com']
 
 
 
@@ -114,7 +114,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
