@@ -1,12 +1,30 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block title %}Código de Vida | sualba.dev{% endblock %}
+
 {% block content %}
+
+<!-- VIDEO DE FONDO -->
+<div style="position: relative; height: 100vh; overflow: hidden;">
+  <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;">
+    <source src="{% static 'blog/videos/10339-865412856_small.mp4' %}" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+  <div style="position: relative; z-index: 1; color: white; text-align: center; padding-top: 20vh;">
+    <h1 class="text-4xl font-bold">Bienvenido al Código de Vida</h1>
+    <p class="text-xl">Cada línea de código, como cada estrella, forma parte de una constelación mayor: la vida. </p> 
+    <p class="text-xl"> Reflexiones, aprendizajes y estrellas fugaces 💫</p>
+  </div>
+</div>
+
+<!-- FRASE -->
 <blockquote class="frase-coder">“A veces, el mejor código no se escribe con teclas, sino con experiencias.”</blockquote>
 
+<!-- SECCIÓN DE POSTS -->
 <section class="lado-coder">
     <h2 class="manifiesto">
         Pensamientos, aprendizajes y reflexiones desde el código... y más allá.
+       <p> Recuerda: incluso la noche más oscura tiene estrellas encendidas solo para ti.</p>
     </h2>
 
     {% for post in posts %}

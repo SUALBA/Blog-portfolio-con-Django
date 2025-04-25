@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^n73b_z@jfy%z9^eso(+(_ei-q!_4wh4pvwb+shefg*q04=g5g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ['sualba.dev', 'www.sualba.dev']
 
-ALLOWED_HOSTS = []
 
 
 # Application definition

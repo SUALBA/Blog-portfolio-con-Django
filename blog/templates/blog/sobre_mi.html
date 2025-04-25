@@ -37,10 +37,10 @@
         <p class="gracias">¡Gracias por tu mensaje! 💌</p>
     {% endif %}
 
-    <form method="post">
+    <form method="post" class="formulario-contacto">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Enviar</button>
+        <button type="submit" class="btn-hero">Enviar</button>
     </form>
 </section>
 
@@ -58,9 +58,6 @@
 {% endif %}
 
 {% endblock %}
-
-
-
 
 
 
