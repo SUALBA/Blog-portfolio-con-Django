@@ -39,7 +39,7 @@ Este blog es un espacio donde comparto conocimiento, proyectos y reflexiones sob
 
 screenshotblog.png
 
-> Podés ver la evolución de este proyecto en tiempo real. ¡Estoy aprendiendo y construyendo al mismo tiempo!
+> Puedes ver la evolución de este proyecto en tiempo real. ¡Estoy aprendiendo y construyendo al mismo tiempo!
 
 ---
 
@@ -55,7 +55,7 @@ Actualmente enfocada en construir herramientas que mezclen código y creatividad
 
 ## 📩 Contacto
 
-Si querés dejarme un mensaje o sugerencia, podés hacerlo desde la sección **Sobre mí** en el blog 😉
+Si quieres dejarme un mensaje o sugerencia, puedes hacerlo desde la sección **Sobre mí** en el blog 😉
 
 ---
 
