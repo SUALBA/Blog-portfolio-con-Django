@@ -136,5 +136,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://blog_sualba_db_user:FrEsdgpkfkv4dCALvCk59AnAXhqwtpVO@dpg-d06nvtili9vc73eipf70-a/blog_sualba_db',
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
 
