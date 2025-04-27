@@ -1,7 +1,20 @@
+# Ignorar entornos virtuales
 env/
+venv/
+
+# Ignorar archivos de caché de Python
 __pycache__/
-db.sqlite3
 *.pyc
-*.log
+
+# Ignorar bases de datos locales
+db.sqlite3
 *.sqlite3
+
+# Ignorar archivos de entorno
 .env
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos estáticos generados
+/staticfiles/
