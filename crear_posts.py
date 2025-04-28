@@ -1,51 +1,33 @@
-# crear_posts.py
 import os
 import django
 import random
-from datetime import datetime, timedelta
+from faker import Faker
 
-# Preparar Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from blog.models import Post
 
-# Lista de títulos de ejemplo
+fake = Faker()
+
 titulos = [
-    "Proyecto Web Avanzado",
-    "Curso de Ciberseguridad",
-    "Diseño con React",
-    "Backend con Django",
-    "Introducción a la Terminal",
-    "Contenedores con Docker",
-    "Automatización con Python",
-    "Excel para Analistas",
-    "Portfolio Frontend Vue.js",
-    "Optimización SEO en 2025",
-    "Primeros pasos en Salesforce",
-    "APIs REST con Django",
-    "Git y Github Pro",
-    "Full Stack Developer Life",
-    "Scrum para Proyectos IT",
-    "UI/UX Moderno",
-    "Startups: cómo lanzar tu idea",
-    "Cybersecurity Bootcamp",
-    "Programación Limpia en Python",
-    "Técnicas de Debugging en VSCode"
+    "Proyecto Web Avanzado", "Diseño con React", "Curso de Ciberseguridad", "Aprendiendo Python",
+    "Dominando Django", "Tips de Terminal", "Introducción a IA", "Productividad Tech",
+    "Cómo usar GitHub como un Pro", "Primeros pasos en Docker", "Marketing para StartUps",
+    "El lado Coder: Motivación", "CSS Creativo", "Backend Best Practices", "Frameworks modernos",
+    "Bases de Datos Relacionales", "Excel Hacks", "Salesforce para principiantes", "Tendencias en AI", "Mindset de programador"
 ]
 
-# Limpieza previa opcional
-# Post.objects.all().delete()
+categorias = [
+    'html', 'css', 'js', 'react', 'vue', 'angular', 'backend', 'docker',
+    'terminal', 'chatgpt', 'ia', 'python', 'cyber', 'startup', 'excel', 'salesforce', 'code'
+]
 
-for titulo in titulos:
-    contenido = f"Contenido de ejemplo para el post: {titulo}. Este artículo habla de {titulo.lower()} y su impacto en el desarrollo moderno."
-    fecha = datetime.now() - timedelta(days=random.randint(1, 300))
-    
-    post = Post(
-        titulo=titulo,
-        contenido=contenido,
-        fecha_publicacion=fecha
+for i in range(50):
+    Post.objects.create(
+        titulo=random.choice(titulos),
+        contenido=fake.paragraph(nb_sentences=20),
+        categoria=random.choice(categorias)
     )
-    post.save()
 
-print("✅ 20 posts creados exitosamente.")
+print("✅ ¡50 posts de prueba creados exitosamente!")

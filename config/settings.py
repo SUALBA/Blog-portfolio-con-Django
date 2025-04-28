@@ -1,9 +1,9 @@
 """
 Django settings for config project.
 
-Proyecto profesional de Blog + Portfolio hecho con Django 5.2.
+Blog + Portfolio profesional hecho con Django 5.2.
 
-Autor: [Su Alba]
+Autor: Su Alba
 Fecha: 2025
 """
 
@@ -14,10 +14,9 @@ import dj_database_url
 # === BASE DIRECTORY ===
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # === SECURITY CONFIGURATION ===
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'tu_clave_de_desarrollo')
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-^n73b_z@jfy%z9^eso(+(_ei-q!_4wh4pvwb+shefg*q04=g5g))')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
     'sualba.dev',
@@ -27,25 +26,41 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+# === DATABASES CONFIGURATION ===
+if DEBUG:
+    # En local: usar SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # En producción: usar PostgreSQL automáticamente
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
 # === INSTALLED APPS ===
 INSTALLED_APPS = [
-     'admin_interface',
-    'colorfield',  # Requerido por admin_interface
+    'admin_interface',
+    'colorfield',  # Necesario para admin_interface
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',  # Tu aplicación principal
+    'blog',  # App principal
 ]
-
 
 # === MIDDLEWARE CONFIGURATION ===
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Sirve archivos estáticos directamente
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Sirve estáticos directamente
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,16 +69,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 # === URLS CONFIGURATION ===
 ROOT_URLCONF = 'config.urls'
-
 
 # === TEMPLATES CONFIGURATION ===
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Puedes agregar aquí carpetas personalizadas de templates
+        'DIRS': [],  # Carpeta de templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,21 +88,8 @@ TEMPLATES = [
     },
 ]
 
-
 # === WSGI APPLICATION ===
 WSGI_APPLICATION = 'config.wsgi.application'
-
-
-# === DATABASE CONFIGURATION ===
-# Usamos dj-database-url para conectar automáticamente a PostgreSQL en Render
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://blog_sualba_db_user:FrEsdgpkfkv4dCALvCk59AnAXhqwtpVO@dpg-d06nvtili9vc73eipf70-a/blog_sualba_db',
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
-
 
 # === PASSWORD VALIDATION ===
 AUTH_PASSWORD_VALIDATORS = [
@@ -99,27 +99,19 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 # === INTERNATIONALIZATION ===
-LANGUAGE_CODE = 'es-es'  # Español, porque somos de espíritu hispano 💪
+LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
-# === STATIC FILES CONFIGURATION ===
+# === STATIC & MEDIA FILES CONFIGURATION ===
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# WhiteNoise se encargará de servir los archivos estáticos en producción.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-# === MEDIA FILES (Si algún día subes imágenes, CVs, etc.) ===
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
 # === DEFAULT AUTO FIELD ===
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
