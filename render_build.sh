@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
-# Archivo para migrar automáticamente en Render
+set -e
+
+# 1. Instala dependencias
 pip install -r requirements.txt
-python manage.py migrate
+
+# 2. Migra la base de datos
+python manage.py migrate --noinput
+
+# 3. Crea posts de prueba en producción
+python manage.py create_fake_posts --count 30
+
+# 4. Recopila estáticos
 python manage.py collectstatic --noinput
-
-
