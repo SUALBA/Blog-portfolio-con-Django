@@ -1,39 +1,97 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="">
 <head>
     <meta charset="UTF-8">
     <title>Blog | sualba.dev</title>
     <link rel="stylesheet" href="{% static 'blog/estilos.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--  //Meta tags SEO y Social Sharing  --> 
+<meta name="description" content="Blog de sualba.dev: artículos sobre HTML, CSS, JavaScript, React y más.">
+<link rel="canonical" href="https://sualba.dev/">
+<!-- Open Graph / Facebook -->
+<meta property="og:type"   content="website">
+<meta property="og:title"  content="sualba.dev – Código, ideas y vida">
+<meta property="og:description" content="Descubre tutoriales y reflexiones sobre desarrollo web y tecnología.">
+<meta property="og:image"  content="https://sualba.dev/static/blog/hero.jpg">
+<!-- Twitter -->
+<meta name="twitter:card"   content="summary_large_image">
+<meta name="twitter:title"  content="sualba.dev – Código, ideas y vida">
+<meta name="twitter:description" content="Descubre tutoriales y reflexiones sobre desarrollo web y tecnología.">
+<meta name="twitter:image"  content="https://sualba.dev/static/blog/hero.jpg">
+
 </head>
 <body>
+
+    <!-- Barra de progreso de scroll -->
+    <div id="scroll-progress"></div>
 
     <header class="site-header">
         <div class="container">
             <h1 class="logo">sualba.dev</h1>
+
+            <!-- Botón para alternar tema claro/oscuro -->
+            <button id="theme-toggle" aria-label="Cambiar tema">🌙</button>
+
             {% if request.path == '/' %}
             <nav class="nav">
-                <a href="/?categoria=all" class="filtro-tema {% if categoria_seleccionada == 'all' %}active{% endif %}">Todos los temas</a>
-                <a href="/?categoria=html" class="filtro-tema {% if categoria_seleccionada == 'html' %}active{% endif %}">HTML</a>
-                <a href="/?categoria=css" class="filtro-tema {% if categoria_seleccionada == 'css' %}active{% endif %}">CSS</a>
-                <a href="/?categoria=js" class="filtro-tema {% if categoria_seleccionada == 'js' %}active{% endif %}">JavaScript</a>
-                <a href="/?categoria=react" class="filtro-tema {% if categoria_seleccionada == 'react' %}active{% endif %}">React</a>
-                <a href="/?categoria=vue" class="filtro-tema {% if categoria_seleccionada == 'vue' %}active{% endif %}">Vue</a>
-                <a href="/?categoria=angular" class="filtro-tema {% if categoria_seleccionada == 'angular' %}active{% endif %}">Angular</a>
-                <a href="/?categoria=backend" class="filtro-tema {% if categoria_seleccionada == 'backend' %}active{% endif %}">Backend</a>
-                <a href="/?categoria=docker" class="filtro-tema {% if categoria_seleccionada == 'docker' %}active{% endif %}">Docker</a>
-                <a href="/?categoria=terminal" class="filtro-tema {% if categoria_seleccionada == 'terminal' %}active{% endif %}">Terminal / GitHub</a>
-                <a href="/?categoria=python" class="filtro-tema {% if categoria_seleccionada == 'python' %}active{% endif %}">Python</a>
-                <a href="/?categoria=chatgpt" class="filtro-tema {% if categoria_seleccionada == 'chatgpt' %}active{% endif %}">ChatGPT</a>
-                <a href="/?categoria=ia" class="filtro-tema {% if categoria_seleccionada == 'ia' %}active{% endif %}">Inteligencia Artificial</a>
-                <a href="/?categoria=cyber" class="filtro-tema {% if categoria_seleccionada == 'cyber' %}active{% endif %}">Cyberseguridad</a>
-                <a href="/?categoria=startup" class="filtro-tema {% if categoria_seleccionada == 'startup' %}active{% endif %}">Startups</a>
-                <a href="/?categoria=excel" class="filtro-tema {% if categoria_seleccionada == 'excel' %}active{% endif %}">Excel</a>
-                <a href="/?categoria=salesforce" class="filtro-tema {% if categoria_seleccionada == 'salesforce' %}active{% endif %}">Salesforce</a>
-                <a href="/?categoria=code" class="filtro-tema {% if categoria_seleccionada == 'code' %}active{% endif %}">El lado Coder</a>
+                <a href="/?categoria=all"
+                   class="filtro-tema{% if categoria_seleccionada == 'all' %} active{% endif %}"
+                   data-categoria="all">Todos los temas</a>
+                <a href="/?categoria=html"
+                   class="filtro-tema{% if categoria_seleccionada == 'html' %} active{% endif %}"
+                   data-categoria="html">HTML</a>
+                <a href="/?categoria=css"
+                   class="filtro-tema{% if categoria_seleccionada == 'css' %} active{% endif %}"
+                   data-categoria="css">CSS</a>
+                <a href="/?categoria=js"
+                   class="filtro-tema{% if categoria_seleccionada == 'js' %} active{% endif %}"
+                   data-categoria="js">JavaScript</a>
+                <a href="/?categoria=react"
+                   class="filtro-tema{% if categoria_seleccionada == 'react' %} active{% endif %}"
+                   data-categoria="react">React</a>
+                <a href="/?categoria=vue"
+                   class="filtro-tema{% if categoria_seleccionada == 'vue' %} active{% endif %}"
+                   data-categoria="vue">Vue</a>
+                <a href="/?categoria=angular"
+                   class="filtro-tema{% if categoria_seleccionada == 'angular' %} active{% endif %}"
+                   data-categoria="angular">Angular</a>
+                <a href="/?categoria=backend"
+                   class="filtro-tema{% if categoria_seleccionada == 'backend' %} active{% endif %}"
+                   data-categoria="backend">Backend</a>
+                <a href="/?categoria=docker"
+                   class="filtro-tema{% if categoria_seleccionada == 'docker' %} active{% endif %}"
+                   data-categoria="docker">Docker</a>
+                <a href="/?categoria=terminal"
+                   class="filtro-tema{% if categoria_seleccionada == 'terminal' %} active{% endif %}"
+                   data-categoria="terminal">Terminal / GitHub</a>
+                <a href="/?categoria=python"
+                   class="filtro-tema{% if categoria_seleccionada == 'python' %} active{% endif %}"
+                   data-categoria="python">Python</a>
+                <a href="/?categoria=chatgpt"
+                   class="filtro-tema{% if categoria_seleccionada == 'chatgpt' %} active{% endif %}"
+                   data-categoria="chatgpt">ChatGPT</a>
+                <a href="/?categoria=ia"
+                   class="filtro-tema{% if categoria_seleccionada == 'ia' %} active{% endif %}"
+                   data-categoria="ia">Inteligencia Artificial</a>
+                <a href="/?categoria=cyber"
+                   class="filtro-tema{% if categoria_seleccionada == 'cyber' %} active{% endif %}"
+                   data-categoria="cyber">Cyberseguridad</a>
+                <a href="/?categoria=startup"
+                   class="filtro-tema{% if categoria_seleccionada == 'startup' %} active{% endif %}"
+                   data-categoria="startup">Startups</a>
+                <a href="/?categoria=excel"
+                   class="filtro-tema{% if categoria_seleccionada == 'excel' %} active{% endif %}"
+                   data-categoria="excel">Excel</a>
+                <a href="/?categoria=salesforce"
+                   class="filtro-tema{% if categoria_seleccionada == 'salesforce' %} active{% endif %}"
+                   data-categoria="salesforce">Salesforce</a>
+                <a href="/?categoria=code"
+                   class="filtro-tema{% if categoria_seleccionada == 'code' %} active{% endif %}"
+                   data-categoria="code">El lado Coder</a>
             </nav>
-            
-          {% endif %}
+            {% endif %}
         </div>
     </header>
 
@@ -42,159 +100,131 @@
         <a href="/sobre-mi/">Sobre mí</a>
         <a href="/codigo-de-vida/">☕ Código de Vida</a>
     </nav>
-    
+
     {% if request.path == '/' %}
     <section class="hero">
         <div class="hero-content">
-            <img src="{% static 'blog/hero.jpg' %}" alt="Hero Image" class="hero-img">
+            <div class="photo-wrapper">
+                <img src="{% static 'blog/hero.jpg' %}"
+                     loading="lazy"
+                     alt="Hero Image"
+                     class="hero-img">
+                <div class="floating-shapes">
+                    <div class="shape circle"    style="--shape-color:#ffcc00; animation-duration:3.6s;"></div>
+                    <div class="shape square"    style="--shape-color:#00e5ff; animation-duration:4.2s;"></div>
+                    <div class="shape triangle"  style="--shape-color:#ff4081; animation-duration:5s;"></div>
+                    <div class="shape circle"    style="--shape-color:#7c4dff; animation-duration:4.5s;"></div>
+                    <div class="shape square"    style="--shape-color:#cddc39; animation-duration:3.8s;"></div>
+                </div>
+            </div>
             <div class="hero-text">
                 <h2>Bienvenido a <span class="brand">sualba.dev</span></h2>
                 <p class="frase">Donde el código, las ideas y la vida se entrelazan.</p>
-                <a href="/?categoria=all" class="btn-hero">Explorar artículos</a>
-
-                
-                
-            </div>
+              </div>
         </div>
     </section>
-    
     {% endif %}
 
     <main class="container content" id="posts">
-
         {% block content %}{% endblock %}
-
-            <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
-                <h2  class="titulo-post clickable">
-                    {% if post.categoria == "html" %}🟧{% elif post.categoria == "css" %}🟦{% elif post.categoria == "js" %}💛
-                    {% elif post.categoria == "react" %}⚛️{% elif post.categoria == "vue" %}🍃{% elif post.categoria == "angular" %}🅰️
-                    {% elif post.categoria == "backend" %}🖥️{% elif post.categoria == "docker" %}🐳
-                    {% elif post.categoria == "terminal" %}💻{% elif post.categoria == "python" %}🐍
-                    {% elif post.categoria == "chatgpt" %}🤖{% elif post.categoria == "ia" %}🧠
-                    {% elif post.categoria == "cyber" %}🔐{% elif post.categoria == "startup" %}🚀
-                    {% elif post.categoria == "excel" %}📊{% elif post.categoria == "salesforce" %}☁️
-                    {% elif post.categoria == "code" %}🧘{% endif %}
-                    {{ post.titulo }}
-                </h2>
-                
-                <div class="contenido oculto">
-                    <p class="meta">{{ post.fecha_publicacion }}</p>
-                    <div>{{ post.contenido }}</div>
-                </div>
-            </article>
-            
+        <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
+            <h2 class="titulo-post clickable">
+                {% if post.categoria == "html" %}🟧
+                {% elif post.categoria == "css"  %}🟦
+                {% elif post.categoria == "js"   %}💛
+                {% elif post.categoria == "react"%}⚛️
+                {% elif post.categoria == "vue"  %}🍃
+                {% elif post.categoria == "angular" %}🅰️
+                {% elif post.categoria == "backend" %}🖥️
+                {% elif post.categoria == "docker"  %}🐳
+                {% elif post.categoria == "terminal"%}💻
+                {% elif post.categoria == "python"  %}🐍
+                {% elif post.categoria == "chatgpt" %}🤖
+                {% elif post.categoria == "ia"      %}🧠
+                {% elif post.categoria == "cyber"   %}🔐
+                {% elif post.categoria == "startup" %}🚀
+                {% elif post.categoria == "excel"   %}📊
+                {% elif post.categoria == "salesforce" %}☁️
+                {% elif post.categoria == "code"    %}🧘
+                {% endif %}
+                {{ post.titulo }}
+            </h2>
+            <div class="contenido oculto">
+                <p class="meta">{{ post.fecha_publicacion }}</p>
+                <div>{{ post.contenido }}</div>
+            </div>
+        </article>
     </main>
 
     <footer class="site-footer">
         <div class="container">
             <p>&copy; {{ now|date:"Y" }} sualba.dev | Hecho con ❤️ y Python</p>
-            <p>
-                <a href="https://github.com/SUALBA" target="_blank">🔗 Ver mi GitHub</a>
-            </p>
+            <p><a href="https://github.com/SUALBA" target="_blank">🔗 Ver mi GitHub</a></p>
         </div>
     </footer>
-    
 
     <script>
-    
-
-        // Mostrar solo los posts correctos al cargar según la URL
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoria = urlParams.get('categoria') || 'all';
-
-    // Mostrar los posts correctos
-    document.querySelectorAll('.post-card').forEach(post => {
-        const cat = post.dataset.categoria;
-        if (categoria === 'all' || cat === categoria) {
-            post.style.display = 'block';
-        } else {
-            post.style.display = 'none';
-        }
-    });
-
-    // Activar el filtro visualmente
-    document.querySelectorAll('.filtro-tema').forEach(f => {
-        f.classList.remove('active');
-        if (f.dataset.categoria === categoria) {
-            f.classList.add('active');
-        }
-    });
-});
-
-        // Acordeón (mostrar/ocultar contenido del post)
-        document.querySelectorAll('.clickable').forEach(titulo => {
-            titulo.addEventListener('click', () => {
-                const contenido = titulo.nextElementSibling;
-                contenido.classList.toggle('oculto');
-            });
+    document.addEventListener('DOMContentLoaded', () => {
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? '' : 'dark');
         });
-    
-        // Filtro dinámico por categoría
-        document.querySelectorAll('.filtro-tema').forEach(filtro => {
-            filtro.addEventListener('click', () => {
-                const categoria = filtro.dataset.categoria;
-    
-                // Estilo visual de botón activo
-                document.querySelectorAll('.filtro-tema').forEach(f => f.classList.remove('active'));
-                filtro.classList.add('active');
-    
-                // Mostrar posts según categoría
-                document.querySelectorAll('.post-card').forEach(post => {
-                    if (categoria === 'all' || post.dataset.categoria === categoria) {
-                        post.style.display = 'block';
-                    } else {
-                        post.style.display = 'none';
-                    }
+
+        // Scroll progress bar
+        const prog = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+            prog.style.width = pct + '%';
+        });
+
+        // Initial filter by URL
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('categoria') || 'all';
+        document.querySelectorAll('.post-card').forEach(p => {
+            p.style.display = (cat === 'all' || p.dataset.categoria === cat) ? 'block' : 'none';
+        });
+        document.querySelectorAll('.filtro-tema').forEach(f => {
+            f.classList.toggle('active', f.dataset.categoria === cat);
+        });
+
+        // Dynamic filter clicks
+        document.querySelectorAll('.filtro-tema').forEach(f => {
+            f.addEventListener('click', e => {
+                e.preventDefault();
+                const c = f.dataset.categoria;
+                document.querySelectorAll('.filtro-tema').forEach(x => x.classList.remove('active'));
+                f.classList.add('active');
+                document.querySelectorAll('.post-card').forEach(p => {
+                    p.style.display = (c === 'all' || p.dataset.categoria === c) ? 'block' : 'none';
                 });
             });
         });
 
-        // Mostrar artículos al hacer clic en "Explorar artículos"
-document.querySelector('.btn-hero').addEventListener('click', () => {
-    // Activar botón "Todos los temas"
-    document.querySelectorAll('.filtro-tema').forEach(f => f.classList.remove('active'));
-    const botonTodos = document.querySelector('.filtro-tema[data-categoria="all"]');
-    if (botonTodos) botonTodos.classList.add('active');
-
-    // Mostrar todos los posts
-    document.querySelectorAll('.post-card').forEach(post => {
-        post.style.display = 'block';
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const titulo = document.querySelector('.titulo-animado');
-    if (titulo) {
-        setTimeout(() => {
-            titulo.classList.add('visible');
-        }, 300);
-    }
-});
-// Animar habilidades cuando entren en pantalla
-document.addEventListener('DOMContentLoaded', () => {
-    const habilidades = document.querySelectorAll('.skill-item');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Solo una vez
-            }
+        // Accordion for posts
+        document.querySelectorAll('.clickable').forEach(t => {
+            t.addEventListener('click', () => t.nextElementSibling.classList.toggle('oculto'));
         });
-    }, {
-        threshold: 0.2 // Cuando el 20% sea visible
-    });
 
-    habilidades.forEach(item => {
-        observer.observe(item);
-    });
-});
-
-
-    </script>
     
+
+        // Extra animations (titles, skills)
+        const tit = document.querySelector('.titulo-animado');
+        if (tit) setTimeout(() => tit.classList.add('visible'), 300);
+        const skills = document.querySelectorAll('.skill-item');
+        if (skills.length) {
+            const obs = new IntersectionObserver((es, ob) => {
+                es.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        ob.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            skills.forEach(s => obs.observe(s));
+        }
+    });
+    </script>
 
 </body>
 </html>
