@@ -1,33 +1,31 @@
-import os
-import django
-import random
-from faker import Faker
+# crear_posts.py
+import os, django, random
+from django.utils import timezone
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from blog.models import Post
 
-fake = Faker()
-
-titulos = [
-    "Proyecto Web Avanzado", "Diseño con React", "Curso de Ciberseguridad", "Aprendiendo Python",
-    "Dominando Django", "Tips de Terminal", "Introducción a IA", "Productividad Tech",
-    "Cómo usar GitHub como un Pro", "Primeros pasos en Docker", "Marketing para StartUps",
-    "El lado Coder: Motivación", "CSS Creativo", "Backend Best Practices", "Frameworks modernos",
-    "Bases de Datos Relacionales", "Excel Hacks", "Salesforce para principiantes", "Tendencias en AI", "Mindset de programador"
+TITULOS = [
+    "¡Bienvenidos al blog!",
+    "Mi primer tutorial de Django",
+    "Cómo usar React con Django",
+    "5 tips de ciberseguridad",
+    "Automatizando tareas con Python",
+    "Diseño responsive en CSS",
+    "Introducción a Docker",
+    "Potencia tu workflow en la terminal",
+    "IA y ChatGPT: primeros pasos",
+    "Excel avanzado para desarrolladores",
 ]
 
-categorias = [
-    'html', 'css', 'js', 'react', 'vue', 'angular', 'backend', 'docker',
-    'terminal', 'chatgpt', 'ia', 'python', 'cyber', 'startup', 'excel', 'salesforce', 'code'
-]
-
-for i in range(50):
-    Post.objects.create(
-        titulo=random.choice(titulos),
-        contenido=fake.paragraph(nb_sentences=20),
-        categoria=random.choice(categorias)
+for i in range(1, 21):
+    post = Post(
+        titulo=random.choice(TITULOS) + f" (#{i})",
+        contenido="Lorem ipsum dolor sit amet, consectetur adipisicing elit…",
+        fecha_publicacion=timezone.now(),
+        categoria=random.choice([c[0] for c in Post._meta.get_field('categoria').choices])
     )
-
-print("✅ ¡50 posts de prueba creados exitosamente!")
+    post.save()
+    print(f"✅ Post creado: {post.titulo}")
