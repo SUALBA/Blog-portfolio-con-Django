@@ -2,6 +2,11 @@
 {% block title %}Inicio | sualba.dev{% endblock %}
 {% block content %}
 
+<!-- 📦 CONTENEDOR CON DISEÑO DE DOS COLUMNAS -->
+<div class="contenedor-blog" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+
+  <!-- 📰 COLUMNA PRINCIPAL: POSTS -->
+  <main style="flex: 3; min-width: 60%;">
     {% for post in posts %}
         <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
             <h2 class="titulo-post clickable">{{ post.titulo }}</h2>
@@ -13,21 +18,32 @@
     {% empty %}
         <p>No hay publicaciones todavía.</p>
     {% endfor %}
+  </main>
 
-    {% if posts.has_other_pages %}
-    <div class="paginacion">
-        {% if posts.has_previous %}
-            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page=1">« Primera</a>
-            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.previous_page_number }}">‹ Anterior</a>
+  <!-- 🔥 COLUMNA LATERAL: MÁS LEÍDOS -->
+  <aside>
+     {% include 'blog/fragmentos/top_leidos.html' %}
+  </aside>
+  <!-- 📃 Paginación -->
+ 
+{% if page_obj.has_other_pages %}
+<div class="paginacion">
+    {% with request.GET as params %}
+        {% if page_obj.has_previous %}
+            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page=1">« Primera</a>
+            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.previous_page_number }}">‹ Anterior</a>
         {% endif %}
 
-        <span class="pagina-actual">Página {{ posts.number }} de {{ posts.paginator.num_pages }}</span>
+        <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
-        {% if posts.has_next %}
-            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.next_page_number }}">Siguiente ›</a>
-            <a href="?{% if categoria_seleccionada != 'all' %}categoria={{ categoria_seleccionada }}&{% endif %}page={{ posts.paginator.num_pages }}">Última »</a>
+        {% if page_obj.has_next %}
+            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente ›</a>
+            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Última »</a>
         {% endif %}
-    </div>
-    {% endif %}
+    {% endwith %}
+</div>
+{% endif %}
+  
+</div>
 
 {% endblock %}

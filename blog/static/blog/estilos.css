@@ -815,3 +815,110 @@ h1 {
   font-variation-settings: "wght" 700;
 }
 
+/* --- Estilos para Top 5 más leídos --- */
+.bloque-populares {
+  background: #161b22;
+  border: 1px solid #2c313a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #d0d6e1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.bloque-populares:hover {
+  transform: translateY(-4px);
+}
+
+.bloque-populares h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #2c313a;
+  padding-bottom: 0.5rem;
+  color: #58caff;
+}
+
+.bloque-populares ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bloque-populares li {
+  margin-bottom: 1rem;
+}
+
+.bloque-populares li a {
+  color: #58caff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bloque-populares li a:hover {
+  text-decoration: underline;
+}
+
+.bloque-populares .contador {
+  display: block;
+  font-size: 0.85rem;
+  color: #8893a5;
+  margin-top: 0.25rem;
+}
+
+
+
+
+/*Mejora legilibilidad para el movil*/
+
+
+/* Contenedor del blog con dos columnas */
+.contenedor-blog {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* En móvil: apilar elementos verticalmente */
+@media (max-width: 768px) {
+  .contenedor-blog {
+    flex-direction: column;
+  }
+}
+
+
+
+/*PAGINACION */
+
+.paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginacion a {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #0d1117;
+  color: #58caff;
+  border: 1px solid #2c313a;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.paginacion a:hover {
+  background: #111927;
+  color: #ffffff;
+}
+
+.paginacion .pagina-actual {
+  padding: 0.4rem 0.8rem;
+  background: #58caff;
+  color: #0d1117;
+  border-radius: 6px;
+  font-weight: bold;
+}

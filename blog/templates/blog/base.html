@@ -226,5 +226,71 @@
     });
     </script>
 
+<!--Buhito  que dice frases -->
+<!--Buhito  que dice frases -->
+<!-- 🧠 MASCOTA FLOTANTE: BÚHO INSPIRADOR -->
+<div id="buho-mascota" onclick="hablaBuho()">
+  🦉
+</div>
+<div id="frase-buho" hidden></div>
+
+<script>
+  function hablaBuho() {
+    // Frases por categoría (usa data-categoria en <body> si quieres)
+    const frases = [
+      "“La imaginación es más importante que el conocimiento.” — Albert Einstein",
+      "“Hazlo o no lo hagas, pero no lo intentes.” — Yoda",
+      "“Elige un trabajo que ames y no tendrás que trabajar un solo día.” — Confucio",
+      "“La simplicidad es la máxima sofisticación.” — Leonardo da Vinci",
+      "“Los sabios hablan porque tienen algo que decir.” — Platón"
+    ];
+    const frase = frases[Math.floor(Math.random() * frases.length)];
+    const div = document.getElementById('frase-buho');
+    div.innerText = '💬 ' + frase;
+    div.hidden = false;
+     buhoTimeout = setTimeout(() => div.hidden = true, 5000);
+    
+  }
+</script>
+
+<style>
+  #buho-mascota {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background: #0d1117;
+    color: #58caff;
+    font-size: 1.8rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+  #buho-mascota:hover {
+    transform: scale(1.2);
+  }
+  #frase-buho {
+    position: fixed;
+    bottom: 6.2rem;
+    left: 1.5rem;
+    background: #1e222a;
+    color: #eee;
+    padding: 0.8rem 1rem;
+    max-width: 300px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    animation: aparecer 0.4s ease;
+    z-index: 1000;
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+
 </body>
 </html>

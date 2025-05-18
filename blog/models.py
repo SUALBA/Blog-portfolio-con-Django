@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 CATEGORIAS = [
     # Desarrollo Web
     ('html', 'HTML'),
@@ -37,7 +38,7 @@ class Post(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateTimeField(default=timezone.now)
     categoria = models.CharField(max_length=20, choices=CATEGORIAS, default='html')
-
+    visitas = models.PositiveIntegerField(default=0) 
     def __str__(self):
         return self.titulo
 
@@ -51,3 +52,4 @@ class Mensaje(models.Model):
 
     def __str__(self):
         return f"Mensaje de {self.nombre or 'Anónimo'} - {self.fecha.strftime('%d/%m/%Y %H:%M')}"
+

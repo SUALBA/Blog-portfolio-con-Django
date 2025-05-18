@@ -1,0 +1,110 @@
+<!-- COMPONENTE REUTILIZABLE: Top 5 más leídos -->
+<aside class="bloque-populares">
+  <h3>🔥 Top 5 más leídos</h3>
+  <ul>
+    {% for post in populares %}
+      <li class="top-leidos-item">
+        <a href="{{ post.get_absolute_url }}" class="top-leidos-link">
+      <span class="top-leidos-icono">🔹</span> {{ post.titulo }}
+        </a>
+      <span class="contador" data-visitas="{{ post.visitas }}">0 visitas</span>
+      </li>
+    {% endfor %}
+
+  </ul>
+</aside>
+
+
+
+<!-- 🧠 MASCOTA FLOTANTE: BÚHO INSPIRADOR -->
+<div id="buho-mascota" onclick="hablaBuho()">
+  🦉
+</div>
+<div id="frase-buho" hidden></div>
+
+<script>
+function hablaBuho() {
+  const categoria = document.body.getAttribute('data-categoria') || 'all';
+
+  const frasesPorCategoria = {
+    python: [
+      "🐍 'Lo explícito es mejor que lo implícito.' — Zen de Python",
+      "💡 'Aprende Python como si fueras a enseñarlo.'"
+    ],
+    js: [
+      "💥 'JS puede todo... pero no debería.'",
+      "🔧 'undefined no es un error, es una advertencia.'"
+    ],
+    react: [
+      "⚛️ 'Piensa en componentes, no en páginas.'",
+      "🔁 'Usa el estado con respeto. Te devolverá la armonía.'"
+    ],
+    css: [
+      "🎨 'El diseño no es cómo se ve, sino cómo funciona.' — Steve Jobs",
+      "🧩 'CSS es el arte de organizar lo que otros rompen.'"
+    ],
+    docker: [
+      "🐳 'Crea. Aísla. Ejecuta. Repite.'",
+      "⚙️ 'Si funciona en mi máquina... haz un contenedor.'"
+    ],
+    all: [
+      "🦉 'Haz preguntas, el código te responde.'",
+      "🌱 'El aprendizaje constante es la mayor inversión.'"
+    ]
+  };
+
+  const frases = frasesPorCategoria[categoria] || frasesPorCategoria['all'];
+  const frase = frases[Math.floor(Math.random() * frases.length)];
+
+  const div = document.getElementById('frase-buho');
+  div.innerText = '💬 ' + frase;
+  div.hidden = false;
+}
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const counters = document.querySelectorAll('.contador');
+    counters.forEach(counter => {
+      const visitas = +counter.getAttribute('data-visitas');
+      let count = 0;
+      const increment = Math.max(1, Math.ceil(visitas / 60));
+
+      const updateCount = () => {
+        count += increment;
+        if (count >= visitas) {
+          count = visitas;
+          counter.childNodes[0].textContent = `👁️ ${count} visitas`;
+          counter.classList.add('contador-final');
+
+          const frase = document.createElement('div');
+          frase.classList.add('frase-papamoscas');
+          frase.innerText = obtenerFraseAleatoria();
+          counter.appendChild(frase);
+
+          const mascota = counter.querySelector('.papamoscas');
+          if (mascota) {
+            mascota.hidden = false;
+            mascota.classList.add('papamoscas-animado');
+          }
+        } else {
+          counter.childNodes[0].textContent = `👁️ ${count} visitas`;
+          requestAnimationFrame(updateCount);
+        }
+      };
+
+      updateCount();
+    });
+
+    function obtenerFraseAleatoria() {
+      const frases = [
+        '¡Esto empieza a moverse!',
+        '👀 Yo de ti iría actualizando...',
+        '🔔 ¡Ya te están leyendo!',
+        '📈 Esto sube que sube...',
+        '🦉 El búho lo ha visto todo...'
+      ];
+      return frases[Math.floor(Math.random() * frases.length)];
+    }
+  });
+</script>
+
