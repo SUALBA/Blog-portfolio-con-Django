@@ -1,103 +1,153 @@
 <!-- COMPONENTE REUTILIZABLE: Top 5 más leídos -->
-<aside class="bloque-populares">
-  <h3>🔥 Top 5 más leídos</h3>
+{% if populares %}
+<aside class="bloque-populares reveal" aria-label="Top 5 entradas más leídas">
+  <h3>🔥 Top leídos</h3>
   <ul>
     {% for post in populares %}
       <li class="top-leidos-item">
         <a href="{{ post.get_absolute_url }}" class="top-leidos-link">
-          <span class="top-leidos-icono">🔹</span> {{ post.titulo }}
+          <span class="top-leidos-icono" aria-hidden="true">🔐</span> {{ post.titulo }}
         </a>
-      <span class="contador" data-visitas="{{ post.visitas }}">0 visitas</span>
+        <span class="contador" data-visitas="{{ post.visitas }}">0 vistas</span>
       </li>
     {% endfor %}
-
   </ul>
 </aside>
+{% endif %}
 
-
-
-<!-- 🧠 MASCOTA FLOTANTE: BÚHO INSPIRADOR -->
-<div id="buho-mascota" onclick="hablaBuho()">
-  🦉
-</div>
-<div id="frase-buho" hidden></div>
+<!-- 🦉 MASCOTA FLOTANTE: BÚHO CIBERNÉTICO -->
+<button id="buho-mascota" type="button" aria-label="Pídele un consejo al búho de seguridad">🦉</button>
+<div id="frase-buho" role="status" hidden></div>
 
 <script>
-function hablaBuho() {
-  const categoria = document.body.getAttribute('data-categoria') || 'all';
+(function () {
+  var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const frasesPorCategoria = {
+  /* ---------- 🦉 Búho de Ciberseguridad y Auditoría ---------- */
+  var frasesPorCategoria = {
+    /* Ciberseguridad y Normativas */
+    cyber: [
+      "🔐 'La seguridad es un proceso, no un producto.' — Bruce Schneier",
+      "🛡️ 'El eslabón más débil de la cadena es el humano.'",
+      "⚠️ 'Un sistema es seguro solo si sus controles son verificables.'"
+    ],
+    iso27001: [
+      "📜 'ISO 27001 no es solo un certificado, es una cultura de mejora continua.'",
+      "🔍 'Auditar no es buscar culpables, es encontrar oportunidades de blindar.'"
+    ],
+    ens: [
+      "🇪🇸 'El ENS nos protege, pero nosotros debemos ejecutarlo.'",
+      "🏛️ 'La soberanía digital empieza por cumplir la norma.'"
+    ],
+    
+    /* Desarrollo y Automatización */
+    herramientas: [
+      "🛠️ 'Automatizar auditorías no es vagancia, es eficiencia operativa.'",
+      "🐍 'Un buen script de Python ahorra mil horas de revisión manual.'"
+    ],
     python: [
-      "🐍 'Lo explícito es mejor que lo implícito.' — Zen de Python",
-      "💡 'Aprende Python como si fueras a enseñarlo.'"
+      "🐍 'La automatización de controles es el futuro de la auditoría.'",
+      "🔍 'Escribe código que audite tu infraestructura mientras duermes.'"
     ],
-    js: [
-      "💥 'JS puede todo... pero no debería.'",
-      "🔧 'undefined no es un error, es una advertencia.'"
+    
+    /* Soft Skills / Código de Vida */
+    softskills: [
+      "🧘 'La resiliencia ante un incidente marca la diferencia.'",
+      "🌱 'La mejor barrera de seguridad es un equipo bien formado.'"
     ],
-    react: [
-      "⚛️ 'Piensa en componentes, no en páginas.'",
-      "🔁 'Usa el estado con respeto. Te devolverá la armonía.'"
-    ],
-    css: [
-      "🎨 'El diseño no es cómo se ve, sino cómo funciona.' — Steve Jobs",
-      "🧩 'CSS es el arte de organizar lo que otros rompen.'"
-    ],
-    docker: [
-      "🐳 'Crea. Aísla. Ejecuta. Repite.'",
-      "⚙️ 'Si funciona en mi máquina... haz un contenedor.'"
-    ],
-    all: [
-      "🦉 'Haz preguntas, el código te responde.'",
-      "🌱 'El aprendizaje constante es la mayor inversión.'"
+    
+    /* General (Por defecto en la home) */
+ all: [
+      "🌐 'La ciberseguridad no es un problema técnico, es un desafío de negocio.'",
+      "🛡️ 'Auditar no es buscar culpables, es construir confianza en los procesos.'",
+      "📜 'El cumplimiento normativo (ISO/ENS) es el suelo, no el techo de tu seguridad.'",
+      "🧠 'La tecnología protege los sistemas, pero las personas defienden la empresa.'",
+      "🗝️ 'No se trata de eliminar el riesgo, sino de gestionarlo con inteligencia.'",
+      "🏗️ 'Diseñar con seguridad desde el principio siempre es más barato que parchear después.'",
+      "📈 'Una política de seguridad que no se revisa, es solo un documento histórico.'",
+      "⚠️ 'El objetivo no es evitar todos los incidentes, sino tener la capacidad de superarlos.'",
+      "💎 'Los datos son el activo más valioso, pero solo si están correctamente clasificados.'",
+      "🎯 'La verdadera seguridad empieza en la junta directiva, no en el servidor.'",
+      "🔧 'La mejor teoría de ciberseguridad no sirve de nada sin una buena ejecución.'",
+      "🕵️ 'Para defender como un arquitecto, primero debes saber pensar como un atacante.'"
     ]
   };
 
-  const frases = frasesPorCategoria[categoria] || frasesPorCategoria['all'];
-  const frase = frases[Math.floor(Math.random() * frases.length)];
+  function hablaBuho() {
+    var categoria = document.body.getAttribute('data-categoria') || 'all';
+    
+    // Buscamos la categoría exacta, o hacemos un match parcial si no existe
+    var frases = frasesPorCategoria[categoria];
+    if (!frases) {
+       for (var key in frasesPorCategoria) {
+           if (categoria && categoria.indexOf(key) !== -1) {
+               frases = frasesPorCategoria[key];
+               break;
+           }
+       }
+    }
+    if (!frases) frases = frasesPorCategoria.all;
+    
+    var frase = frases[Math.floor(Math.random() * frases.length)];
 
-  const div = document.getElementById('frase-buho');
-  div.innerText = '💬 ' + frase;
-  div.hidden = false;
-}
+    var div = document.getElementById('frase-buho');
+    if (!div) return;
+    div.textContent = '💬 ' + frase;
+    div.hidden = false;
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Iniciando contador de visitas');
-  document.querySelectorAll('.contador').forEach(counter => {
-    const visitas = parseInt(counter.dataset.visitas, 10) || 0;
-    let count = 0;
-    const increment = Math.max(1, Math.ceil(visitas / 60));
+    /* Se oculta a los 6 segundos */
+    clearTimeout(div._timer);
+    div._timer = setTimeout(function () { div.hidden = true; }, 6000);
+  }
+
+  window.hablaBuho = hablaBuho;
+
+  var buho = document.getElementById('buho-mascota');
+  if (buho) buho.addEventListener('click', hablaBuho);
+
+  /* ---------- 👁️ Contador de visitas (Estilo Terminal de Analista) ---------- */
+  var frasesAnalisis = [
+    '📊 Análisis de tráfico completado.',
+    '🛡️ Activos monitoreados correctamente.',
+    '👁️ Trazabilidad de accesos verificada.',
+    '📈 Métricas de exposición procesadas.',
+    '🦉 El búho registra el comportamiento.'
+  ];
+
+  function obtenerFraseAnalisis() {
+    return frasesAnalisis[Math.floor(Math.random() * frasesAnalisis.length)];
+  }
+
+  document.querySelectorAll('.contador').forEach(function (counter) {
+    var visitas = parseInt(counter.dataset.visitas, 10) || 0;
+
+    /* Si el usuario tiene movimiento reducido, lo ponemos directo sin animación */
+    if (reducido || !('requestAnimationFrame' in window)) {
+      counter.textContent = '👁️ ' + visitas + ' vistas';
+      counter.classList.add('contador-final');
+      return;
+    }
+
+    var count = 0;
+    var increment = Math.max(1, Math.ceil(visitas / 60));
 
     function updateCount() {
       count = Math.min(visitas, count + increment);
-      // Actualiza siempre el textContent completo
-      counter.textContent = `👁️ ${count} visitas`;
+      counter.textContent = '👁️ ' + count + ' vistas';
 
       if (count < visitas) {
         requestAnimationFrame(updateCount);
       } else {
         counter.classList.add('contador-final');
-        const frase = document.createElement('div');
+        /* Cuando termina de contar, lanza la frase de analista */
+        var frase = document.createElement('span');
         frase.className = 'frase-papamoscas';
-        frase.innerText = obtenerFraseAleatoria();
+        frase.textContent = obtenerFraseAnalisis();
         counter.appendChild(frase);
       }
     }
 
     updateCount();
   });
-
-
-    function obtenerFraseAleatoria() {
-      const frases = [
-        '¡Esto empieza a moverse!',
-        '👀 Yo de ti iría actualizando...',
-        '🔔 ¡Ya te están leyendo!',
-        '📈 Esto sube que sube...',
-        '🦉 El búho lo ha visto todo...'
-      ];
-      return frases[Math.floor(Math.random() * frases.length)];
-    }
-  });
+})();
 </script>
-

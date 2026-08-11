@@ -1,296 +1,191 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="es" data-theme="">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Blog | sualba.dev</title>
-    <link rel="stylesheet" href="{% static 'blog/estilos.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b15">
+  <meta name="description" content="sualba.dev — Auditoría de Ciberseguridad, normativas (ISO 27001, ENS, NIST) y defensa estratégica de activos.">
+  <title>{% block title %}sualba.dev | Auditoría de Ciberseguridad{% endblock %}</title>
 
-<!--  //Meta tags SEO y Social Sharing  --> 
-<meta name="description" content="Blog de sualba.dev: artículos sobre HTML, CSS, JavaScript, React y más.">
-<link rel="canonical" href="https://sualba.dev/">
-<!-- Open Graph / Facebook -->
-<meta property="og:type"   content="website">
-<meta property="og:title"  content="sualba.dev – Código, ideas y vida">
-<meta property="og:description" content="Descubre tutoriales y reflexiones sobre desarrollo web y tecnología.">
-<meta property="og:image"  content="https://sualba.dev/static/blog/hero.jpg">
-<!-- Twitter -->
-<meta name="twitter:card"   content="summary_large_image">
-<meta name="twitter:title"  content="sualba.dev – Código, ideas y vida">
-<meta name="twitter:description" content="Descubre tutoriales y reflexiones sobre desarrollo web y tecnología.">
-<meta name="twitter:image"  content="https://sualba.dev/static/blog/hero.jpg">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-500-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-700-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-700-normal.css">
+  
+  <!-- IMPORTANTE: Subir este número cada vez que toques el CSS para evitar caché -->
+  <link rel="stylesheet" href="{% static 'blog/estilos.css' %}?v=20">
 </head>
-<body>
 
-    <!-- Barra de progreso de scroll -->
-    <div id="scroll-progress"></div>
+<!-- data-categoria: lo lee el búho para elegir sus frases -->
+<body class="{% block body_class %}{% endblock %}"
+      data-categoria="{% block data_categoria %}all{% endblock %}">
 
-    <header class="site-header">
-        <div class="container">
-            <h1 class="logo">sualba.dev</h1>
+  <div class="sky" aria-hidden="true">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+    <div class="stars stars-1"></div>
+    <div class="stars stars-2"></div>
+    <span class="shooting-star s1"></span>
+    <span class="shooting-star s2"></span>
+    <span class="shooting-star s3"></span>
+  </div>
 
-            <!-- Botón para alternar tema claro/oscuro -->
-            <button id="theme-toggle" aria-label="Cambiar tema">🌙</button>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-            {% if request.path == '/' %}
-  <nav class="nav">
-    <a href="/?categoria=all"
-       class="filtro-tema{% if categoria_seleccionada == 'all' %} active{% endif %}"
-       data-categoria="all">Todos los temas</a>
-    <a href="/?categoria=html"
-       class="filtro-tema{% if categoria_seleccionada == 'html' %} active{% endif %}"
-       data-categoria="html">HTML</a>
-    <a href="/?categoria=css"
-       class="filtro-tema{% if categoria_seleccionada == 'css' %} active{% endif %}"
-       data-categoria="css">CSS</a>
-    <a href="/?categoria=js"
-       class="filtro-tema{% if categoria_seleccionada == 'js' %} active{% endif %}"
-       data-categoria="js">JavaScript</a>
-    <a href="/?categoria=react"
-       class="filtro-tema{% if categoria_seleccionada == 'react' %} active{% endif %}"
-       data-categoria="react">React</a>
-    <a href="/?categoria=vue"
-       class="filtro-tema{% if categoria_seleccionada == 'vue' %} active{% endif %}"
-       data-categoria="vue">Vue</a>
-    <a href="/?categoria=angular"
-       class="filtro-tema{% if categoria_seleccionada == 'angular' %} active{% endif %}"
-       data-categoria="angular">Angular</a>
-    <a href="/?categoria=backend"
-       class="filtro-tema{% if categoria_seleccionada == 'backend' %} active{% endif %}"
-       data-categoria="backend">Backend</a>
-    <a href="/?categoria=docker"
-       class="filtro-tema{% if categoria_seleccionada == 'docker' %} active{% endif %}"
-       data-categoria="docker">Docker</a>
-    <a href="/?categoria=terminal"
-       class="filtro-tema{% if categoria_seleccionada == 'terminal' %} active{% endif %}"
-       data-categoria="terminal">Terminal / GitHub</a>
-    <a href="/?categoria=python"
-       class="filtro-tema{% if categoria_seleccionada == 'python' %} active{% endif %}"
-       data-categoria="python">Python</a>
-    <a href="/?categoria=chatgpt"
-       class="filtro-tema{% if categoria_seleccionada == 'chatgpt' %} active{% endif %}"
-       data-categoria="chatgpt">ChatGPT</a>
-    <a href="/?categoria=ia"
-       class="filtro-tema{% if categoria_seleccionada == 'ia' %} active{% endif %}"
-       data-categoria="ia">Inteligencia Artificial</a>
-    <a href="/?categoria=cyber"
-       class="filtro-tema{% if categoria_seleccionada == 'cyber' %} active{% endif %}"
-       data-categoria="cyber">Cyberseguridad</a>
-    <a href="/?categoria=startup"
-       class="filtro-tema{% if categoria_seleccionada == 'startup' %} active{% endif %}"
-       data-categoria="startup">Startups</a>
-    <a href="/?categoria=excel"
-       class="filtro-tema{% if categoria_seleccionada == 'excel' %} active{% endif %}"
-       data-categoria="excel">Excel</a>
-    <a href="/?categoria=salesforce"
-       class="filtro-tema{% if categoria_seleccionada == 'salesforce' %} active{% endif %}"
-       data-categoria="salesforce">Salesforce</a>
-    <a href="/?categoria=code"
-       class="filtro-tema{% if categoria_seleccionada == 'code' %} active{% endif %}"
-       data-categoria="code">El lado Coder</a>
-</nav>
-            {% endif %}
-        </div>
-    </header>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="{% url 'blog:lista_posts' %}">🌙 sualba<span>.dev</span></a>
 
-    <nav class="nav">
-        <a href="/">Inicio</a>
-        <a href="/sobre-mi/">Sobre mí</a>
-        <a href="/codigo-de-vida/">☕ Código de Vida</a>
-    </nav>
+      <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+
+      <nav class="nav-links" id="nav-links" aria-label="Navegación principal">
+        <a href="{% url 'blog:lista_posts' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a>
+        <a href="{% url 'blog:sobre_mi' %}" class="{% if '/sobre-mi' in request.path %}active{% endif %}">Sobre mí</a>
+        <a href="https://auditsym.com" class="nav-special" target="_blank" rel="noopener">AuditSym 🛡️</a>
+        <a href="/proyectos/">Casos de Estudio</a>
+        <a href="{% url 'blog:lista_posts' %}" class="{% if '/post/' in request.path or '/codigo-de-vida' in request.path %}active{% endif %}">Blog</a>
+        <a href="/contacto/">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container main">
 
     {% if request.path == '/' %}
     <section class="hero">
-        <div class="hero-content">
-            <div class="photo-wrapper">
-                <img src="{% static 'blog/hero.jpg' %}"
-                     loading="lazy"
-                     alt="Hero Image"
-                     class="hero-img">
-                <div class="floating-shapes">
-                    <div class="shape circle"    style="--shape-color:#ffcc00; animation-duration:3.6s;"></div>
-                    <div class="shape square"    style="--shape-color:#00e5ff; animation-duration:4.2s;"></div>
-                    <div class="shape triangle"  style="--shape-color:#ff4081; animation-duration:5s;"></div>
-                    <div class="shape circle"    style="--shape-color:#7c4dff; animation-duration:4.5s;"></div>
-                    <div class="shape square"    style="--shape-color:#cddc39; animation-duration:3.8s;"></div>
-                </div>
-            </div>
-            <div class="hero-text">
-                <h2>Bienvenido a <span class="brand">sualba.dev</span></h2>
-                <p class="frase">Donde el código, las ideas y la vida se entrelazan.</p>
-              </div>
+      <div class="hero-copy reveal">
+        <span class="hero-kicker"><span class="dot"></span>🔐 Auditoría · Cumplimiento · Defensa</span>
+        <h1 class="hero-title">Bienvenido a <span class="grad-text">sualba.dev</span></h1>
+        <p class="hero-sub">Auditoría de Ciberseguridad, normativas y defensa estratégica de activos.</p>
+        <p class="hero-lead">
+          Mi trayectoria en hotelería y marketing me enseñó a gestionar crisis y entender a las personas.
+          Hoy, aplico esa visión humana a la Auditoría de Sistemas.
+        </p>
+        <p class="hero-lead">
+          Especializada en marcos normativos (ISO 27001, ENS, NIST) y creadora de <strong>AuditSym</strong>,
+          automatizo el cumplimiento para proteger lo que importa. Porque al final, la ciberseguridad no es
+          solo tecnología: es personas, procesos y propósito.
+        </p>
+        <p class="hero-badge">🏅 Accésit Premios Appcesibilidad (DXC Technology) · Top 7% Nacional</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://auditsym.com" target="_blank" rel="noopener">🛡️ Ver AuditSym</a>
+          <a class="btn btn-ghost" href="{% url 'blog:lado_coder' %}">✨ Código de Vida</a>
         </div>
+        <ul class="hero-chips">
+          <li>🛡️ ISO 27001 · ENS · NIST</li>
+          <li>🐍 Python &amp; Automatización</li>
+          <li>🗣️ ES · EN · FR · CA (C1)</li>
+        </ul>
+      </div>
+
+      <!-- ✨ La chica con el aura y las figuras en movimiento -->
+      <div class="hero-visual">
+        <div class="avatar-wrap">
+          <span class="aura" aria-hidden="true"></span>
+          <div class="avatar">
+            <img src="{% static 'blog/hero.jpg' %}" alt="Ilustración de Susana Alba rodeada de su aura">
+          </div>
+          
+          <!-- Emojis orbitando -->
+          <span class="orbit orbit-1" aria-hidden="true">🛡️</span>
+          <span class="shield-defender" aria-hidden="true">🛡️</span>
+          <span class="orbit orbit-3" aria-hidden="true">✨</span>
+          <span class="orbit orbit-4" aria-hidden="true">🌙</span>
+
+          
+          <!-- 🦠 VIRUS ATACANDO Y SIENDO REPELIDOS 🦠 -->
+          <div class="floating-shapes" aria-hidden="true">
+            <span class="virus v1">🦠</span>
+            <span class="virus v2">🐛</span>
+            <span class="virus v3">👾</span>
+            <span class="virus v4">💀</span>
+          </div>
+        </div>
+
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal-bar"><span></span><span></span><span></span><em>auditsym — zsh</em></div>
+          <div class="terminal-body">
+            <p><span class="t-prompt">$</span> auditsym scan --framework iso27001</p>
+            <p class="t-ok">✓ 114/114 controles verificados</p>
+            <p class="t-ok">✓ ENS · nivel ALTO</p>
+            <p class="t-warn">⚠ 2 hallazgos de prioridad media</p>
+            <p><span class="t-prompt">$</span> generar informe --pdf</p>
+            <p class="t-ok">▸ informe_cumplimiento.pdf listo ✔</p>
+            <p><span class="t-prompt">$</span> <span class="t-cursor"></span></p>
+          </div>
+        </div>
+      </div>
     </section>
     {% endif %}
 
-    <main class="container content" id="posts">
-        {% block content %}{% endblock %}
-        <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
-            <h2 class="titulo-post clickable">
-                {% if post.categoria == "html" %}🟧
-                {% elif post.categoria == "css"  %}🟦
-                {% elif post.categoria == "js"   %}💛
-                {% elif post.categoria == "react"%}⚛️
-                {% elif post.categoria == "vue"  %}🍃
-                {% elif post.categoria == "angular" %}🅰️
-                {% elif post.categoria == "backend" %}🖥️
-                {% elif post.categoria == "docker"  %}🐳
-                {% elif post.categoria == "terminal"%}💻
-                {% elif post.categoria == "python"  %}🐍
-                {% elif post.categoria == "chatgpt" %}🤖
-                {% elif post.categoria == "ia"      %}🧠
-                {% elif post.categoria == "cyber"   %}🔐
-                {% elif post.categoria == "startup" %}🚀
-                {% elif post.categoria == "excel"   %}📊
-                {% elif post.categoria == "salesforce" %}☁️
-                {% elif post.categoria == "code"    %}🧘
-                {% endif %}
-                {{ post.titulo }}
-            </h2>
-            <div class="contenido oculto">
-                <p class="meta">{{ post.fecha_publicacion }}</p>
-                <div>{{ post.contenido }}</div>
-            </div>
-        </article>
-    </main>
+    {% block content %}{% endblock %}
+  </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; {{ now|date:"Y" }} sualba.dev | Hecho con ❤️ y Python</p>
-            <p><a href="https://github.com/SUALBA" target="_blank">🔗 Ver mi GitHub</a></p>
-        </div>
-    </footer>
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-stars" aria-hidden="true">✦ · ✧ · ✦</p>
+      <span class="footer-owl" aria-hidden="true">🦉</span>
+      <p class="footer-copy">© {% now "Y" %} sualba.dev | Auditoría de Ciberseguridad y Cumplimiento</p>
+      <nav class="footer-links" aria-label="Enlaces externos">
+        <a href="https://www.linkedin.com/in/susana-alba-santamaria-a5aba096/" target="_blank" rel="noopener">🔗 LinkedIn</a>
+        <a href="https://github.com/SUALBA" target="_blank" rel="noopener">💻 GitHub</a>
+        <a href="https://auditsym.com" target="_blank" rel="noopener">🛡️ AuditSym</a>
+      </nav>
+    </div>
+  </footer>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Theme toggle
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            const html = document.documentElement;
-            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? '' : 'dark');
+  <button class="to-top" id="toTop" aria-label="Volver arriba">↑</button>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var navToggle = document.querySelector('.nav-toggle');
+      var navLinks  = document.querySelector('.nav-links');
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function () {
+          var abierto = navLinks.classList.toggle('open');
+          navToggle.setAttribute('aria-expanded', abierto);
         });
-
-        // Scroll progress bar
-        const prog = document.getElementById('scroll-progress');
-        window.addEventListener('scroll', () => {
-            const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-            prog.style.width = pct + '%';
+        navLinks.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            navLinks.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
         });
-
-        // Initial filter by URL
-        const params = new URLSearchParams(window.location.search);
-        const cat = params.get('categoria') || 'all';
-        document.querySelectorAll('.post-card').forEach(p => {
-            p.style.display = (cat === 'all' || p.dataset.categoria === cat) ? 'block' : 'none';
-        });
-        document.querySelectorAll('.filtro-tema').forEach(f => {
-            f.classList.toggle('active', f.dataset.categoria === cat);
-        });
-
-        // Dynamic filter clicks
-        document.querySelectorAll('.filtro-tema').forEach(f => {
-            f.addEventListener('click', e => {
-                e.preventDefault();
-                const c = f.dataset.categoria;
-                document.querySelectorAll('.filtro-tema').forEach(x => x.classList.remove('active'));
-                f.classList.add('active');
-                document.querySelectorAll('.post-card').forEach(p => {
-                    p.style.display = (c === 'all' || p.dataset.categoria === c) ? 'block' : 'none';
-                });
-            });
-        });
-
-        // Accordion for posts
-        document.querySelectorAll('.clickable').forEach(t => {
-            t.addEventListener('click', () => t.nextElementSibling.classList.toggle('oculto'));
-        });
-
-    
-
-        // Extra animations (titles, skills)
-        const tit = document.querySelector('.titulo-animado');
-        if (tit) setTimeout(() => tit.classList.add('visible'), 300);
-        const skills = document.querySelectorAll('.skill-item');
-        if (skills.length) {
-            const obs = new IntersectionObserver((es, ob) => {
-                es.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('visible');
-                        ob.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.2 });
-            skills.forEach(s => obs.observe(s));
-        }
-    });
-    </script>
-
-<!--Buhito  que dice frases -->
-<!--Buhito  que dice frases -->
-<!-- 🧠 MASCOTA FLOTANTE: BÚHO INSPIRADOR -->
-<div id="buho-mascota" onclick="hablaBuho()">
-  🦉
-</div>
-<div id="frase-buho" hidden></div>
-
-<script>
-  function hablaBuho() {
-    // Frases por categoría (usa data-categoria en <body> si quieres)
-    const frases = [
-      "“La imaginación es más importante que el conocimiento.” — Albert Einstein",
-      "“Hazlo o no lo hagas, pero no lo intentes.” — Yoda",
-      "“Elige un trabajo que ames y no tendrás que trabajar un solo día.” — Confucio",
-      "“La simplicidad es la máxima sofisticación.” — Leonardo da Vinci",
-      "“Los sabios hablan porque tienen algo que decir.” — Platón"
-    ];
-    const frase = frases[Math.floor(Math.random() * frases.length)];
-    const div = document.getElementById('frase-buho');
-    div.innerText = '💬 ' + frase;
-    div.hidden = false;
-     buhoTimeout = setTimeout(() => div.hidden = true, 5000);
-    
-  }
-</script>
-
-<style>
-  #buho-mascota {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    background: #0d1117;
-    color: #58caff;
-    font-size: 1.8rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-  }
-  #buho-mascota:hover {
-    transform: scale(1.2);
-  }
-  #frase-buho {
-    position: fixed;
-    bottom: 6.2rem;
-    left: 1.5rem;
-    background: #1e222a;
-    color: #eee;
-    padding: 0.8rem 1rem;
-    max-width: 300px;
-    font-size: 0.9rem;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    animation: aparecer 0.4s ease;
-    z-index: 1000;
-  }
-  @keyframes aparecer {
-    from { opacity: 0; transform: translateY(-5px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-</style>
-
-
+      }
+      var bar   = document.getElementById('progressBar');
+      var toTop = document.getElementById('toTop');
+      function onScroll() {
+        var h   = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        if (bar)   bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        if (toTop) toTop.classList.toggle('show', h.scrollTop > 600);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      if (toTop) toTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+      });
+      var els = document.querySelectorAll('.reveal');
+      if (!reduced && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+          });
+        }, { threshold: .12 });
+        els.forEach(function (el) { io.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('revealed'); });
+      }
+    })();
+  </script>
 </body>
 </html>

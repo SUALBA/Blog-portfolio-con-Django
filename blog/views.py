@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from .models import Post
 from .forms import MensajeForm
@@ -63,15 +64,33 @@ class SobreMiView(FormView):
     form_class = MensajeForm
     success_url = reverse_lazy('sobre_mi')
 
+    def get(self, request, *args, **kwargs):
+        # 🚨 TRUCO TEMPORAL PARA CREAR USUARIO EN RENDER 🚨
+        User = get_user_model()
+        if not User.objects.filter(username='sualba').exists():
+            try:
+                User.objects.create_superuser(
+                    username='sualba',
+                    email='admin@sualba.dev',
+                    password='SualbaAdmin2024!',
+                    is_staff=True,
+                    is_superuser=True
+                )
+            except Exception as e:
+                pass # Si ya se creó por arte de magia, no hacemos nada
+        # 🚨 FIN DEL TRUCO 🚨
+
+        return super().get(request, *args, **kwargs)
+
     def form_valid(self, form):
         mensaje = form.save()
         messages.success(self.request, '✅ ¡Gracias! Tu mensaje ha sido enviado correctamente.')
         send_mail(
-            subject=f'Nuevo mensaje de {mensaje.nombre or "Visitante"}',
+            subject=f'Nuevo mensaje de {mensaje.nombre or "Visitante"} en sualba.dev',
             message=mensaje.mensaje,
-            from_email=mensaje.email or 'noreply@tudominio.com',
-            recipient_list=['tucorreo@tudominio.com'],
-            fail_silently=True,
+            from_email='noreply@tudominio.com',
+            recipient_list=['AQUI_PON_TU_EMAIL_REAL@gmail.com'],
+            fail_silenciosamente=True,
         )
         return super().form_valid(form)
 
@@ -94,3 +113,5 @@ class LadoCoderView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(categoria='code').order_by('-fecha_publicacion')
+
+    

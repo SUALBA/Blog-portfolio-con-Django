@@ -1,49 +1,93 @@
+
 {% extends 'blog/base.html' %}
+
 {% block title %}Inicio | sualba.dev{% endblock %}
+{% block data_categoria %}{{ categoria_seleccionada|default:'all' }}{% endblock %}
+
 {% block content %}
+<div class="blog-layout">
 
-<!-- 📦 CONTENEDOR CON DISEÑO DE DOS COLUMNAS -->
-<div class="contenedor-blog" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+  <section>
+    <div class="page-head reveal">
+      <h1 class="page-title">Bitácora de <span class="grad-text">seguridad</span></h1>
+      <p class="page-sub">Notas sobre auditoría, cumplimiento normativo, desarrollo y vida entre estrellas.</p>
+    </div>
 
-  <!-- 📰 COLUMNA PRINCIPAL: POSTS -->
-  <main style="flex: 3; min-width: 60%;">
-    {% for post in posts %}
-        <article class="post-card categoria-{{ post.categoria }}" data-categoria="{{ post.categoria }}">
-            <h2 class="titulo-post clickable">{{ post.titulo }}</h2>
-            <div class="contenido oculto">
-                <p class="meta">{{ post.fecha_publicacion }}</p>
-                <div>{{ post.contenido }}</div>
-            </div>
+    <!-- Barra de filtros: usa `categorias` y `categoria_seleccionada` de la vista -->
+    <nav class="filter-bar reveal" aria-label="Filtrar por categoría">
+      <a class="filter-chip {% if categoria_seleccionada == 'all' %}on{% endif %}"
+         href="{% url 'blog:lista_posts' %}">Todas</a>
+      {% for slug, nombre in categorias %}
+        <a class="filter-chip {% if categoria_seleccionada == slug %}on{% endif %}"
+           href="?categoria={{ slug }}">{{ nombre }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="posts-grid">
+      {% for post in posts %}
+        <article class="post-card reveal">
+          <div class="post-top">
+            <span class="cat-badge cat-{{ post.categoria|slugify }}">
+              <span class="emoji" aria-hidden="true">
+                {% if post.categoria == "html" %}🟧
+                {% elif post.categoria == "css" %}🟦
+                {% elif post.categoria == "js" %}💛
+                {% elif post.categoria == "react" %}⚛️
+                {% elif post.categoria == "vue" %}🍃
+                {% elif post.categoria == "angular" %}🅰️
+                {% elif post.categoria == "backend" %}🖥️
+                {% elif post.categoria == "docker" %}🐳
+                {% elif post.categoria == "terminal" %}💻
+                {% elif post.categoria == "python" %}🐍
+                {% elif post.categoria == "chatgpt" %}🤖
+                {% elif post.categoria == "ia" %}🧠
+                {% elif post.categoria == "cyber" %}🔐
+                {% elif post.categoria == "startup" %}🚀
+                {% elif post.categoria == "excel" %}📊
+                {% elif post.categoria == "salesforce" %}☁️
+                {% elif post.categoria == "code" %}🧘
+                {% else %}📝{% endif %}
+              </span>
+              {{ post.get_categoria_display }}
+            </span>
+            <time class="post-date">{{ post.fecha_publicacion|date:"d/m/Y" }}</time>
+          </div>
+
+          <h2 class="post-title">
+            <a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a>
+          </h2>
+
+          <p class="post-excerpt">{{ post.contenido|striptags|truncatewords:28 }}</p>
+
+          <a class="post-link" href="{{ post.get_absolute_url }}">Leer más <span aria-hidden="true">→</span></a>
         </article>
-    {% empty %}
-        <p>No hay publicaciones todavía.</p>
-    {% endfor %}
-  </main>
+      {% empty %}
+        <div class="empty-state">
+          <p>🌌 No hay publicaciones todavía.</p>
+        </div>
+      {% endfor %}
+    </div>
 
-  <!-- 🔥 COLUMNA LATERAL: MÁS LEÍDOS -->
-  <aside>
-     {% include 'blog/fragmentos/top_leidos.html' %}
-  </aside>
-  <!-- 📃 Paginación -->
- 
-{% if page_obj.has_other_pages %}
-<div class="paginacion">
-    {% with request.GET as params %}
+    {% if page_obj.has_other_pages %}
+      {% with request.GET as params %}
+      <nav class="pagination" aria-label="Paginación de entradas">
         {% if page_obj.has_previous %}
-            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page=1">« Primera</a>
-            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.previous_page_number }}">‹ Anterior</a>
+          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page=1">« Primera</a>
+          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">‹ Anterior</a>
         {% endif %}
 
-        <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        <span class="page-info">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
         {% if page_obj.has_next %}
-            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.next_page_number }}">Siguiente ›</a>
-            <a href="?{% if params.categoria %}categoria={{ params.categoria }}&{% endif %}page={{ page_obj.paginator.num_pages }}">Última »</a>
+          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Siguiente ›</a>
+          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.paginator.num_pages }}">Última »</a>
         {% endif %}
-    {% endwith %}
-</div>
-{% endif %}
-  
-</div>
+      </nav>
+      {% endwith %}
+    {% endif %}
+  </section>
 
+  {% include 'blog/fragmentos/top_leidos.html' %}
+
+</div>
 {% endblock %}
