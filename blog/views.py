@@ -65,20 +65,7 @@ class SobreMiView(FormView):
     success_url = reverse_lazy('sobre_mi')
 
     def get(self, request, *args, **kwargs):
-        # 🚨 TRUCO TEMPORAL PARA CREAR USUARIO EN RENDER 🚨
-        User = get_user_model()
-        if not User.objects.filter(username='sualba').exists():
-            try:
-                User.objects.create_superuser(
-                    username='sualba',
-                    email='admin@sualba.dev',
-                    password='SualbaAdmin2024!',
-                    is_staff=True,
-                    is_superuser=True
-                )
-            except Exception as e:
-                pass # Si ya se creó por arte de magia, no hacemos nada
-        # 🚨 FIN DEL TRUCO 🚨
+
 
         return super().get(request, *args, **kwargs)
 
@@ -90,7 +77,7 @@ class SobreMiView(FormView):
             message=mensaje.mensaje,
             from_email='noreply@tudominio.com',
             recipient_list=['AQUI_PON_TU_EMAIL_REAL@gmail.com'],
-            fail_silenciosamente=True,
+            fail_silently=True,
         )
         return super().form_valid(form)
 
