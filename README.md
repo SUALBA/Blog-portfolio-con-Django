@@ -1,148 +1,46 @@
-# 🌐 sualba.dev - Blog personal y portfolio
+🛡️ sualba.dev | Cybersecurity Portfolio & Compliance Lab
+"La ciberseguridad no es solo tecnología, es personas, procesos y propósito."
 
-Bienvenido a mi proyecto de Blog + Portfolio personal, desarrollado con **Django 5.2** y desplegado en **Render**.
+No es solo un portfolio. Es una demostración técnica de arquitectura de seguridad, diseño frontend premium y desarrollo backend seguro. Construido para posicionar a la autora como Auditora de Ciberseguridad y Compliance.
 
-Este espacio es donde comparto:
-- 📚 Mis aprendizajes sobre desarrollo web, programación y ciberseguridad.
-- 👨‍💻 Mis proyectos y experiencias personales en el mundo tech.
-- ✨ Reflexiones personales en la sección especial **"Código de Vida"**.
+🌌 La Experiencia de Usuario (UI/UX)
+El sitio simula un entorno de "Night Owl" para hackers y auditores. Incluye:
 
----
+Cielo dinámico: Auroras boreales, estrellas titilantes y estrellas fugaces.
+Defensa visual interactiva: Un escudo de energía que repela malware animado en tiempo real.
+Terminal simulada: Un clon visual de AuditSym ejecutando escaneos de la ISO 27001.
+Búho Inteligente: Un asistente flotante que aporta frases de ciberseguridad según la categoría del post.
+Diseño Glassmorphism: Tarjetas semi-transparentes con efecto blur sobre el fondo espacial.
+🛠️ Arquitectura Técnica
+Backend: Python 3.13 + Django 5.x (Arquitectura limpia y desacoplada).
+Base de Datos: PostgreSQL (Producción) / SQLite3 (Local).
+Frontend: CSS Puro (sin frameworks JS). Variables CSS, Flexbox, Grid y animaciones complejas de llaves (@keyframes).
+Tipografía Premium: Space Grotesk (Títulos), Inter (Cuerpo) y JetBrains Mono (Terminal).
+Despliegue: Render.com + Gunicorn + WhiteNoise.
+🔐 Enfoque de Contenido (Ciberseguridad)
+El blog está categorizado para demostrar dominio técnico, no solo habilidades de desarrollo:
 
-## 🚀 ¿Qué encontrarás aquí?
+📜 Marcos Normativos: ISO 27001, ENS, NIST.
+🔍 Auditoría de Sistemas y Análisis de Riesgos.
+🛠️ Herramientas propias: Desarrollo de AuditSym.
+🧠 IA aplicada a la seguridad y productividad.
+🧘 Código de Vida: Soft skills, resiliencia y factor humano en la ciberseguridad.
+📸 Vista Previa (Añadir capturas reales aquí)
+(Aquí deberás subir una captura del Hero con el escudo defendiéndote de los virus, y otra de la vista del blog con las tarjetas de ciberseguridad).
 
-📝 Un blog categorizado sobre:
+📂 Estructura del Proyecto
+blog-portfolio/├── blog/           # App principal: modelos, vistas, lógica├── config/         # Configuración global del proyecto Django├── static/         # CSS, imágenes y fuentes (incluyendo el tema Noche Estrellada)├── templates/      # HTML estructurado con bloques de Django└── manage.py       # Punto de entrada a la aplicación
+👤 Sobre la Autora
+Suzana Alba — Especialista en Auditoría de Ciberseguridad y Cumplimiento Normativo (ISO 27001, ENS, NIST).
 
-- Desarrollo Web
-- Frontend : HTML, CSS y JS
-- React, Vue y Angular
-- Backend & Docker
-- Terminal & GitHub
-- Python y ChatGPT
-- Inteligencia Artificial
-- Startups y Salesforce
-- Excel y Marketing
-- Cyberseguridad 🔐
-- ☕ El lado Coder (reflexiones y código de vida)
+🏅 Accésit Premios Appcesibilidad (DXC Technology) · Top 7% Nacional.
+🔐 Certificada en Gestión de Incidentes y Análisis de Riesgos (CCN).
+🗣️ Nivel C1 en 4 idiomas (ES, EN, FR, CA).
+🐍 Creadora de AuditSym, herramienta de automatización de cumplimiento.
+🔗 Web: sualba.dev
+🐙 GitHub: SUALBA
 
----
+📩 Contacto
+Para auditorías, consultorías o propuestas, visitar la sección de contacto en el blog.
 
-## ✨ Tecnologías utilizadas
-
-- **Python 3.13** 🐍
-- **Django 5.2** 🌿
-- HTML + CSS personalizados
-- Paginación, filtros por categoría y lógica backend
-- Panel de administración para gestión de contenido
-- Formularios validados con aprobación manual
-- PostgreSQL (base de datos en producción)
-- Gunicorn (servidor WSGI)
-- WhiteNoise (para servir archivos estáticos)
-- Render.com (hosting gratuito)
-- GitHub (repositorio y control de versiones)
-
----
-## 📂 Estructura del Proyecto
-
-```bash
-blog-portfolio/
-├── blog/           # App principal: posts, categorías, código de vida
-├── config/         # Configuración global del proyecto Django
-├── static/         # Archivos estáticos (CSS, imágenes, JS)
-├── templates/      # Plantillas HTML
-├── requirements.txt
-├── render.yaml
-├── render_build.sh
-├── .env            # Variables de entorno (local)
-├── .gitignore
-├── README.md
-└── manage.py
-
-## 📸 Captura del sitio
-
-screenshotblog.png
-
-> Puedes ver la evolución de este proyecto en tiempo real. ¡Estoy aprendiendo y construyendo al mismo tiempo!
-
----
-
-## 👤 Sobre mí
-
-Soy desarrolladora web apasionada por la tecnología, el diseño, la inteligencia artificial y la ciberseguridad.  
-Actualmente enfocada en construir herramientas que mezclen código y creatividad.
-
-🔗 [Mi blog: sualba.dev](https://sualba.dev)  
-🐙 [GitHub: SUALBA](https://github.com/SUALBA)
-
----
-
-## 📩 Contacto
-
-Si quieres dejarme un mensaje o sugerencia, puedes hacerlo desde la sección **Sobre mí** en el blog 😉
-
----
-
-## 💻 Cómo levantarlo en local 🚀 
-1.Clona el repositorio:
-```bash
-git clone https://github.com/SUALBA/Blog-portfolio-con-Django.git
-cd Blog-portfolio-con-Django
-
-2. Crea y activa un entorno virtual:
-```bash
-python -m venv env
-source env/bin/activate   # en Linux/Mac
-env\Scripts\activate.bat  # en WindowsWindows
-
-3. Instala dependencias:
-```bash
-pip install -r requirements.txt
-pip install django-admin-interface
-python manage.py migrate
-
-4. Configura variables de entorno locales en .env.
-
-5. Lanza el servidor:
-``bash
-python manage.py runserver
-
-🔥 Despliegue en Producción
-El proyecto está desplegado automáticamente en Render.com.
-Para el despliegue:
-
-Utiliza un render.yaml bien estructurado.
-
-Usa PostgreSQL como base de datos.
-
-Sirve estáticos con WhiteNoise.
-
-Lee la base de datos de la variable DATABASE_URL (gracias a dj-database-url).
-
-💬 ¿Por qué Django y PostgreSQL?
-Django + PostgreSQL son una pareja robusta, segura y profesional.
-
-Usar dj-database-url me permite cambiar de hosting sin tocar el código, solo configurando una variable de entorno.
-
-🎯 Objetivos
-Mostrar mi pasión por el desarrollo web y la ciberseguridad.
-
-Construir una marca personal sólida en internet.
-
-Demostrar habilidades técnicas, abierta a ofertas reales de cara a recruiters🎯.
-
-🎨 Mejoras en el Admin de Django
-He integrado un tema moderno en el Admin con django-admin-interface:
-
-Tema oscuro
-
-Botones estilizados
-
-Layout espacioso
-
-Colores personalizables
-
-Mejor experiencia de administración
-
-📬 Contacto
-Si quieres contactarme, puedes hacerlo en sualba.dev o a través de mis redes.
-PD: ¡Gracias por visitar mi proyecto! 🚀 Espero que encuentres inspiración aquí.
+PD: Este portfolio es un ejercicio de arquitectura visual, diseño UI y dominio técnico de Django.
