@@ -76,7 +76,7 @@ class SobreMiView(FormView):
             subject=f'Nuevo mensaje de {mensaje.nombre or "Visitante"} en sualba.dev',
             message=mensaje.mensaje,
             from_email='noreply@tudominio.com',
-            recipient_list=['AQUI_PON_TU_EMAIL_REAL@gmail.com'],
+            recipient_list=['sualba.dev@gmail.com'],
             fail_silently=True,
         )
         return super().form_valid(form)
