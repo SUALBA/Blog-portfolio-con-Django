@@ -4,7 +4,7 @@ Django settings for config project.
 Blog + Portfolio profesional hecho con Django 5.2.
 
 Autor: Su Alba
-Fecha: 2025
+Fecha: 2026
 """
 
 import os
@@ -43,7 +43,6 @@ else:
             ssl_require=True
         )
     }
-
 # === INSTALLED APPS ===
 INSTALLED_APPS = [
     'admin_interface',

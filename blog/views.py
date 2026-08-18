@@ -1,21 +1,17 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
-from .models import Post
+from .models import Post, CATEGORIAS  # Importa CATEGORIAS
 from .forms import MensajeForm
 
-# Categorías válidas para validación
-CATEGORIAS_VALIDAS = {
-    'html', 'css', 'js', 'react', 'vue', 'angular', 'backend',
-    'docker', 'terminal', 'python', 'chatgpt', 'ia', 'cyber',
-    'startup', 'excel', 'salesforce', 'code', 'all'
-}
+# Categorías válidas: se construyen dinámicamente desde CATEGORIAS
+CATEGORIAS_VALIDAS = {slug for slug, _ in CATEGORIAS}
+CATEGORIAS_VALIDAS.add('all')
 
 class DetallePostView(DetailView):
     model = Post
-    template_name = 'blog/detalle_post.html'  # Corregir template
+    template_name = 'blog/detalle_post.html'
     context_object_name = 'post'
 
     def get_object(self, queryset=None):
@@ -31,31 +27,21 @@ class PostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        categoria = self.request.GET.get('categoria', 'all').lower()
-        
-        # Validar y filtrar categoría
-        if categoria not in CATEGORIAS_VALIDAS:
-            categoria = 'all'
-            
         qs = super().get_queryset().order_by('-fecha_publicacion')
-        
-        if categoria != 'all':
+        categoria = self.request.GET.get('categoria', 'all')
+        if categoria != 'all' and categoria in CATEGORIAS_VALIDAS:
             qs = qs.filter(categoria=categoria)
-        
         return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categoria = self.request.GET.get('categoria', 'all').lower()
-        
-        # Asegurar categoría válida en contexto
-        context['categoria_seleccionada'] = categoria if categoria in CATEGORIAS_VALIDAS else 'all'
-        
-        # Lógica optimizada para posts populares
+        # Pasar la lista de categorías al contexto
+        context['categorias'] = CATEGORIAS
+        context['categoria_seleccionada'] = self.request.GET.get('categoria', 'all')
+        # Lógica para populares
         populares = Post.objects.order_by('-visitas')[:5]
         if not populares.exists():
             populares = Post.objects.order_by('-fecha_publicacion')[:5]
-        
         context['populares'] = populares
         return context
 
@@ -63,11 +49,6 @@ class SobreMiView(FormView):
     template_name = 'blog/sobre_mi.html'
     form_class = MensajeForm
     success_url = reverse_lazy('sobre_mi')
-
-    def get(self, request, *args, **kwargs):
-
-
-        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         mensaje = form.save()
@@ -92,7 +73,6 @@ class SobreMiView(FormView):
         ctx['populares'] = Post.objects.order_by('-visitas')[:5]
         return ctx
 
-
 class LadoCoderView(ListView):
     model = Post
     template_name = 'blog/lado_coder.html'
@@ -100,5 +80,3 @@ class LadoCoderView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(categoria='code').order_by('-fecha_publicacion')
-
-    

@@ -11,23 +11,33 @@ from blog.models import Post
 fake = Faker()
 
 titulos = [
-    "Proyecto Web Avanzado", "Diseño con React", "Curso de Ciberseguridad", "Aprendiendo Python",
-    "Dominando Django", "Tips de Terminal", "Introducción a IA", "Productividad Tech",
-    "Cómo usar GitHub como un Pro", "Primeros pasos en Docker", "Marketing para StartUps",
-    "El lado Coder: Motivación", "CSS Creativo", "Backend Best Practices", "Frameworks modernos",
-    "Bases de Datos Relacionales", "Excel Hacks", "Salesforce para principiantes", "Tendencias en AI", "Mindset de programador"
+    "ISO 27001: guía práctica para su implementación",
+    "ENS: Esquema Nacional de Seguridad paso a paso",
+    "NIST CSF: cómo alinear tu estrategia de ciberseguridad",
+    "Auditoría de sistemas: metodologías y mejores prácticas",
+    "Privacidad por diseño y RGPD en la práctica",
+    "AuditSym: automatizando el cumplimiento normativo",
+    "Python para automatización de tareas de seguridad",
+    "Arquitectura web segura con Django y React",
+    "Docker y despliegue seguro en la nube",
+    "Hardening de redes: protección perimetral",
+    "El lado Coder: reflexiones sobre programación y vida",
+    "Análisis de riesgos con MAGERIT",
+    "Seguridad en APIs REST: buenas prácticas",
+    "Gestión de incidentes: plan de respuesta efectivo",
+    "Ciberseguridad en entornos cloud",
 ]
 
 categorias = [
-    'html', 'css', 'js', 'react', 'vue', 'angular', 'backend', 'docker',
-    'terminal', 'chatgpt', 'ia', 'python', 'cyber', 'startup', 'excel', 'salesforce', 'code'
+    'iso27001', 'ens', 'nist', 'auditoria', 'privacidad',
+    'auditsym', 'python', 'web', 'devops', 'redes', 'code'
 ]
 
-for i in range(50):
+for i in range(20):  # Reducido de 50 a 20
     Post.objects.create(
         titulo=random.choice(titulos),
-        contenido=fake.paragraph(nb_sentences=20),
+        contenido=fake.paragraphs(nb=5),
         categoria=random.choice(categorias)
     )
 
-print("✅ ¡50 posts de prueba creados exitosamente!")
+print("✅ ¡Posts de prueba creados exitosamente!")
