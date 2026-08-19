@@ -114,3 +114,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # === DEFAULT AUTO FIELD ===
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ==========================================================================
+# EMAIL BACKEND - MODO DESARROLLO (Imprime en consola, no envía)
+# ==========================================================================
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'

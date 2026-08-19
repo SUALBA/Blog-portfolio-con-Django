@@ -1,53 +1,50 @@
-
 {% extends 'blog/base.html' %}
 
-{% block title %}Inicio | sualba.dev{% endblock %}
+{% block title %}Blog | sualba.dev{% endblock %}
 {% block data_categoria %}{{ categoria_seleccionada|default:'all' }}{% endblock %}
 
 {% block content %}
 <div class="blog-layout">
 
-  <section>
-    <div class="page-head reveal">
-      <h1 class="page-title">Bitácora de <span class="grad-text">seguridad</span></h1>
-      <p class="page-sub">Notas sobre auditoría, cumplimiento normativo, desarrollo y vida entre estrellas.</p>
-    </div>
-
-    <!-- Barra de filtros: usa `categorias` y `categoria_seleccionada` de la vista -->
-    <nav class="filter-bar reveal" aria-label="Filtrar por categoría">
-      <a class="filter-chip {% if categoria_seleccionada == 'all' %}on{% endif %}"
-         href="{% url 'blog:lista_posts' %}">Todas</a>
-      {% for slug, nombre in categorias %}
-        <a class="filter-chip {% if categoria_seleccionada == slug %}on{% endif %}"
-           href="?categoria={{ slug }}">{{ nombre }}</a>
+  <!-- COLUMNA IZQUIERDA: SIDEBAR VERTICAL (Categorías) -->
+  <aside class="blog-sidebar reveal">
+    <h2 class="sidebar-title">Temáticas</h2>
+    <ul class="category-menu">
+      <li>
+        <a href="{% url 'blog:lista_posts' %}" class="category-link {% if categoria_seleccionada == 'all' or not categoria_seleccionada %}active{% endif %}">
+          <span class="emoji">✨</span> Todas
+        </a>
+      </li>
+      {% for slug, nombre, icono in categorias %}
+      <li>
+        <a href="?categoria={{ slug }}" class="category-link {% if categoria_seleccionada == slug %}active{% endif %}">
+          <span class="emoji">{{ icono }}</span>
+          {{ nombre }}
+        </a>
+      </li>
       {% endfor %}
-    </nav>
+    </ul>
+  </aside>
 
+  <!-- COLUMNA DERECHA: CONTENIDO PRINCIPAL -->
+  <main class="blog-main">
+
+    <!-- Cabecera del blog -->
+    <header class="blog-header reveal">
+      <p class="page-kicker">🦉 SUALBA / KNOWLEDGE BASE</p>
+      <h1 class="page-title">Blog de <span class="grad-text">Ciberseguridad</span></h1>
+      <p class="page-sub">
+        Ciberseguridad explicada desde la práctica: auditoría, OSINT, pentesting, defensa, GRC, desarrollo, automatización e investigación.
+      </p>
+    </header>
+
+    <!-- Publicaciones -->
     <div class="posts-grid">
       {% for post in posts %}
         <article class="post-card reveal">
-          <div class="post-top">
-            <span class="cat-badge cat-{{ post.categoria|slugify }}">
-              <span class="emoji" aria-hidden="true">
-                {% if post.categoria == "html" %}🟧
-                {% elif post.categoria == "css" %}🟦
-                {% elif post.categoria == "js" %}💛
-                {% elif post.categoria == "react" %}⚛️
-                {% elif post.categoria == "vue" %}🍃
-                {% elif post.categoria == "angular" %}🅰️
-                {% elif post.categoria == "backend" %}🖥️
-                {% elif post.categoria == "docker" %}🐳
-                {% elif post.categoria == "terminal" %}💻
-                {% elif post.categoria == "python" %}🐍
-                {% elif post.categoria == "chatgpt" %}🤖
-                {% elif post.categoria == "ia" %}🧠
-                {% elif post.categoria == "cyber" %}🔐
-                {% elif post.categoria == "startup" %}🚀
-                {% elif post.categoria == "excel" %}📊
-                {% elif post.categoria == "salesforce" %}☁️
-                {% elif post.categoria == "code" %}🧘
-                {% else %}📝{% endif %}
-              </span>
+          <div class="post-meta">
+            <span class="post-category">
+              <span class="emoji">{{ post.get_categoria_emoji }}</span>
               {{ post.get_categoria_display }}
             </span>
             <time class="post-date">{{ post.fecha_publicacion|date:"d/m/Y" }}</time>
@@ -59,35 +56,38 @@
 
           <p class="post-excerpt">{{ post.contenido|striptags|truncatewords:28 }}</p>
 
-          <a class="post-link" href="{{ post.get_absolute_url }}">Leer más <span aria-hidden="true">→</span></a>
+          <a class="post-link" href="{{ post.get_absolute_url }}">
+            Leer artículo <span aria-hidden="true">→</span>
+          </a>
         </article>
       {% empty %}
         <div class="empty-state">
-          <p>🌌 No hay publicaciones todavía.</p>
+          <p>🌌 El conocimiento está a punto de comenzar.</p>
+          <span>Próximamente, nuevas investigaciones y artículos de ciberseguridad.</span>
         </div>
       {% endfor %}
     </div>
 
+    <!-- Paginación -->
     {% if page_obj.has_other_pages %}
       {% with request.GET as params %}
-      <nav class="pagination" aria-label="Paginación de entradas">
-        {% if page_obj.has_previous %}
-          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page=1">« Primera</a>
-          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">‹ Anterior</a>
-        {% endif %}
+        <nav class="pagination" aria-label="Paginación de entradas">
+          {% if page_obj.has_previous %}
+            <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page=1">« Primera</a>
+            <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">‹ Anterior</a>
+          {% endif %}
 
-        <span class="page-info">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+          <span class="page-info">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
-        {% if page_obj.has_next %}
-          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Siguiente ›</a>
-          <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.paginator.num_pages }}">Última »</a>
-        {% endif %}
-      </nav>
+          {% if page_obj.has_next %}
+            <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Siguiente ›</a>
+            <a class="page-link" href="?{% if params.categoria %}categoria={{ params.categoria }}&amp;{% endif %}page={{ page_obj.paginator.num_pages }}">Última »</a>
+          {% endif %}
+        </nav>
       {% endwith %}
     {% endif %}
-  </section>
 
-  {% include 'blog/fragmentos/top_leidos.html' %}
+  </main>
 
 </div>
 {% endblock %}

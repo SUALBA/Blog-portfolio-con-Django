@@ -40,27 +40,91 @@
 
   <header class="navbar">
     <div class="container nav-inner">
-      <a class="nav-logo" href="{% url 'blog:home' %}">
-  🌙 sualba<span>.dev</span>
-      </a>
+      <a class="nav-logo" href="{% url 'blog:lista_posts' %}">🌙 sualba<span>.dev</span></a>
+
       <button class="nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
 
       <nav class="nav-links" id="nav-links" aria-label="Navegación principal">
-        <a href="{% url 'blog:home' %}" class="{% if request.path == '/' %}active{% endif %}">     Inicio </a>
+        <a href="{% url 'blog:lista_posts' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a>
         <a href="{% url 'blog:sobre_mi' %}" class="{% if '/sobre-mi' in request.path %}active{% endif %}">Sobre mí</a>
         <a href="https://auditsym.com" class="nav-special" target="_blank" rel="noopener">AuditSym 🛡️</a>
         <a href="/proyectos/">Casos de Estudio</a>
-        <a href="{% url 'blog:lista_posts' %}" class="{% if '/blog/' in request.path or '/post/' in request.path %}active{% endif %}"> Blog </a>
-        <a href="{% url 'blog:contacto' %}">Contacto</a>
+        <a href="{% url 'blog:lista_posts' %}" class="{% if '/post/' in request.path or '/codigo-de-vida' in request.path %}active{% endif %}">Blog</a>
+        <a href="/contacto/">Contacto</a>
       </nav>
     </div>
   </header>
 
   <main id="contenido" class="container main">
 
-    
+    {% if request.path == '/' %}
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <span class="hero-kicker"><span class="dot"></span>🔐 Auditoría · Cumplimiento · Defensa</span>
+        <h1 class="hero-title">Bienvenido a <span class="grad-text">sualba.dev</span></h1>
+        <p class="hero-sub">Auditoría de Ciberseguridad, normativas y defensa estratégica de activos.</p>
+        <p class="hero-lead">
+          Mi trayectoria en hotelería y marketing me enseñó a gestionar crisis y entender a las personas.
+          Hoy, aplico esa visión humana a la Auditoría de Sistemas.
+        </p>
+        <p class="hero-lead">
+          Especializada en marcos normativos (ISO 27001, ENS, NIST) y creadora de <strong>AuditSym</strong>,
+          automatizo el cumplimiento para proteger lo que importa. Porque al final, la ciberseguridad no es
+          solo tecnología: es personas, procesos y propósito.
+        </p>
+        <p class="hero-badge">🏅 Accésit Premios Appcesibilidad (DXC Technology) · Top 7% Nacional</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://auditsym.com" target="_blank" rel="noopener">🛡️ Ver AuditSym</a>
+          <a class="btn btn-ghost" href="{% url 'blog:lado_coder' %}">✨ Código de Vida</a>
+        </div>
+        <ul class="hero-chips">
+          <li>🛡️ ISO 27001 · ENS · NIST</li>
+          <li>🐍 Python &amp; Automatización</li>
+          <li>🗣️ ES · EN · FR · CA (C1)</li>
+        </ul>
+      </div>
+
+      <!-- ✨ La chica con el aura y las figuras en movimiento -->
+      <div class="hero-visual">
+        <div class="avatar-wrap">
+          <span class="aura" aria-hidden="true"></span>
+          <div class="avatar">
+            <img src="{% static 'blog/hero.jpg' %}" alt="Ilustración de Susana Alba rodeada de su aura">
+          </div>
+          
+          <!-- Emojis orbitando -->
+          <span class="orbit orbit-1" aria-hidden="true">🛡️</span>
+          <span class="shield-defender" aria-hidden="true">🛡️</span>
+          <span class="orbit orbit-3" aria-hidden="true">✨</span>
+          <span class="orbit orbit-4" aria-hidden="true">🌙</span>
+
+          
+          <!-- 🦠 VIRUS ATACANDO Y SIENDO REPELIDOS 🦠 -->
+          <div class="floating-shapes" aria-hidden="true">
+            <span class="virus v1">🦠</span>
+            <span class="virus v2">🐛</span>
+            <span class="virus v3">👾</span>
+            <span class="virus v4">💀</span>
+          </div>
+        </div>
+
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal-bar"><span></span><span></span><span></span><em>auditsym — zsh</em></div>
+          <div class="terminal-body">
+            <p><span class="t-prompt">$</span> auditsym scan --framework iso27001</p>
+            <p class="t-ok">✓ 114/114 controles verificados</p>
+            <p class="t-ok">✓ ENS · nivel ALTO</p>
+            <p class="t-warn">⚠ 2 hallazgos de prioridad media</p>
+            <p><span class="t-prompt">$</span> generar informe --pdf</p>
+            <p class="t-ok">▸ informe_cumplimiento.pdf listo ✔</p>
+            <p><span class="t-prompt">$</span> <span class="t-cursor"></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
 
     {% block content %}{% endblock %}
   </main>
@@ -79,10 +143,7 @@
   </footer>
 
   <button class="to-top" id="toTop" aria-label="Volver arriba">↑</button>
-<div id="buho-mascota" onclick="hablaBuho()">
-  🦉
-</div>
-<div id="frase-buho" hidden></div>
+
   <script>
     (function () {
       var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -126,6 +187,5 @@
       }
     })();
   </script>
-  <script src="{% static 'blog/js/buho.js' %}"></script>
 </body>
 </html>

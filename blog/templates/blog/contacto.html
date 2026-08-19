@@ -1,0 +1,98 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Contacto | sualba.dev{% endblock %}
+{% block data_categoria %}contacto{% endblock %} {# Esto activa la frase especial del búho #}
+
+{% block content %}
+<div class="contacto-wrapper reveal">
+
+  <!-- Cabecera -->
+  <header class="contacto-header">
+    <p class="page-kicker">🦉 SUALBA / CANAL DE COMUNICACIÓN</p>
+    <h1 class="page-title">¿<span class="grad-text">Hablamos?</span></h1>
+   <section class="contacto">
+    <h1>📬 Contacto</h1>
+    <p style="text-align: left; margin-bottom: 2rem;">
+        Si te interesa mi perfil, quieres colaborar en algún proyecto o simplemente charlar sobre ciberseguridad, tecnología o proyectos con propósito, <strong>escríbeme</strong>.
+    </p>
+  </header>
+
+  <!-- 3 Bloques de Enfoque -->
+  <div class="contacto-grid">
+    <div class="contacto-card">
+      <div class="cyber-icon">◈</div>
+      <h3>Auditoría & GRC</h3>
+      <p>Consultas sobre ciberseguridad, gestión de riesgos, ISO 27001, ENS, NIST y cumplimiento normativo.</p>
+    </div>
+
+    <div class="contacto-card">
+      <div class="cyber-icon">◬</div>
+      <h3>Tecnología & Desarrollo</h3>
+      <p>Python, automatización, Django, laboratorios de seguridad y proyectos técnicos a medida.</p>
+    </div>
+
+    <div class="contacto-card">
+      <div class="cyber-icon">◉</div>
+      <h3>AuditSym</h3>
+      <p>Si quieres conocer, probar o colaborar con AuditSym, este es también tu punto de entrada.</p>
+    </div>
+  </div>
+
+     <!-- Formulario de Contacto -->
+    <!-- Formulario de Contacto -->
+  <div class="form-container reveal">
+    <h2 class="form-title">Envíame un mensaje</h2>
+    
+    {% if messages %}
+      {% for message in messages %}
+        <div class="form-ok" style="margin-bottom: 1.5rem;">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="cyber-form" novalidate>
+      {% csrf_token %}
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="{{ form.nombre.id_for_label }}">Nombre</label>
+          {{ form.nombre }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.email.id_for_label }}">Email</label>
+          {{ form.email }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.motivo.id_for_label }}">Motivo</label>
+        {{ form.motivo }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.mensaje.id_for_label }}">Mensaje</label>
+        {{ form.mensaje }}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;">
+        <span>Enviar mensaje</span>
+        <span class="btn-icon">→</span>
+      </button>
+    </form>
+  </div>
+  <script>
+  // Auto-ocultar mensajes de éxito después de 5 segundos
+  document.addEventListener('DOMContentLoaded', function() {
+    var mensajeExito = document.querySelector('.form-ok');
+    if (mensajeExito) {
+      setTimeout(function() {
+        mensajeExito.style.transition = 'opacity 0.5s ease';
+        mensajeExito.style.opacity = '0';
+        setTimeout(function() {
+          mensajeExito.style.display = 'none';
+        }, 500);
+      }, 5000); // 5 segundos
+    }
+  });
+</script>
+{% endblock %}

@@ -25,13 +25,13 @@ El blog está categorizado para demostrar dominio técnico, no solo habilidades 
 🛠️ Herramientas propias: Desarrollo de AuditSym.
 🧠 IA aplicada a la seguridad y productividad.
 🧘 Código de Vida: Soft skills, resiliencia y factor humano en la ciberseguridad.
-📸 Vista Previa (Añadir capturas reales aquí)
+📸 Vista Previa ![imagen portada](/primerproyectoDjango/screenshotblog.png)
 (Aquí deberás subir una captura del Hero con el escudo defendiéndote de los virus, y otra de la vista del blog con las tarjetas de ciberseguridad).
 
 📂 Estructura del Proyecto
 blog-portfolio/├── blog/           # App principal: modelos, vistas, lógica├── config/         # Configuración global del proyecto Django├── static/         # CSS, imágenes y fuentes (incluyendo el tema Noche Estrellada)├── templates/      # HTML estructurado con bloques de Django└── manage.py       # Punto de entrada a la aplicación
 👤 Sobre la Autora
-Suzana Alba — Especialista en Auditoría de Ciberseguridad y Cumplimiento Normativo (ISO 27001, ENS, NIST).
+Susana Alba — Especialista en Auditoría de Ciberseguridad y Cumplimiento Normativo (ISO 27001, ENS, NIST).
 
 🏅 Accésit Premios Appcesibilidad (DXC Technology) · Top 7% Nacional.
 🔐 Certificada en Gestión de Incidentes y Análisis de Riesgos (CCN).

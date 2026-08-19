@@ -460,46 +460,134 @@ body{
   50% { opacity: 1; box-shadow: 0 0 60px rgba(94,234,212, 0.9), inset 0 0 40px rgba(94,234,212, 0.15); border-color: rgba(94,234,212, 0.9); }
 }
 
-/* ---------- 14 · Sobre mí ---------- */
-.about-hero{ display:grid; grid-template-columns:220px 1fr; gap:2.6rem; align-items:center;
-  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-  padding:2.2rem; backdrop-filter:blur(10px); margin-bottom:2.8rem; box-shadow:var(--shadow); }
-.about-lead{ color:var(--muted); margin-top:.85rem; max-width:72ch; }
-.about-lead a{ color:var(--accent); border-bottom:1px dashed rgba(94,234,212,.5); }
-.about-lead a:hover{ color:var(--text); }
+/* ==========================================================================
+   14b · ICONOGRAFÍA CYBER LINEAL (Reemplazo de emojis en especialidades)
+   ========================================================================== */
+.skills-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+  gap: 1rem; 
+}
 
-.section{ margin-bottom:3rem; }
-.section-title{ font-family:var(--font-head); font-size:clamp(1.25rem, 2.6vw, 1.6rem);
-  margin-bottom:.45rem; display:flex; align-items:center; gap:.7rem; }
-.section-title::after{ content:""; flex:1; height:1px;
-  background:linear-gradient(90deg, var(--border-strong), transparent); }
-.section-sub{ color:var(--muted); margin-bottom:1.5rem; }
+.skill-card { 
+  display: flex; 
+  align-items: center; 
+  gap: 1rem;
+  background: var(--card); 
+  border: 1px solid var(--border); 
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.15rem; 
+  font-size: 0.95rem; 
+  font-weight: 500;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; 
+}
 
-.skills-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:.9rem; }
-.skill-card{ display:flex; align-items:center; gap:.85rem;
-  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm);
-  padding:.9rem 1.05rem; font-size:.92rem; transition:border-color .25s, transform .25s, box-shadow .25s; }
-.skill-card:hover{ border-color:rgba(129,140,248,.5); transform:translateY(-3px);
-  box-shadow:0 14px 30px -16px rgba(129,140,248,.4); }
-.skill-card .emoji{ font-size:1.35rem; }
-.skill-card a{ color:var(--accent); }
+.skill-card:hover { 
+  border-color: var(--border-strong); 
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -16px rgba(129, 140, 248, 0.3); 
+}
 
-.trust-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem; }
-.trust-card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-  padding:1.35rem 1.25rem; transition:border-color .25s, transform .25s, box-shadow .25s; }
-.trust-card:hover{ border-color:rgba(251,191,36,.45); transform:translateY(-3px);
-  box-shadow:0 14px 30px -16px rgba(251,191,36,.35); }
-.trust-card h3{ font-family:var(--font-head); font-size:1rem; margin-bottom:.55rem; }
-.trust-card p{ color:var(--muted); font-size:.9rem; }
+/* Nuevo sistema de iconos cyber (reemplaza a la antigua clase .emoji) */
+.cyber-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  background: rgba(94, 234, 212, 0.03);
+  /* Recorte en las esquinas para estilo técnico/cyber (efecto HUD) */
+  clip-path: polygon(15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%, 0% 15%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-mono);
+  position: relative;
+}
 
-.timeline{ border-left:2px dashed var(--border-strong); margin-left:.55rem; padding-left:1.7rem;
-  display:flex; flex-direction:column; gap:1.05rem; }
-.timeline-item{ position:relative; font-size:.95rem; }
-.timeline-item::before{ content:""; position:absolute; left:calc(-1.7rem - 7px); top:.42rem;
-  width:12px; height:12px; border-radius:50%; background:var(--bg);
-  border:2px solid var(--accent); box-shadow:0 0 14px rgba(94,234,212,.6); }
-.timeline-item .emoji{ margin-right:.45rem; }
+/* Efecto hover de "activación de sistema" */
+.skill-card:hover .cyber-icon {
+  border-color: var(--accent);
+  background: rgba(94, 234, 212, 0.1);
+  box-shadow: 0 0 15px rgba(94, 234, 212, 0.25), inset 0 0 8px rgba(94, 234, 212, 0.1);
+  transform: translateY(-2px);
+  color: #fff;
+  text-shadow: 0 0 8px var(--accent);
+}
 
+/* Variantes de color por especialidad (manteniendo la elegancia y coherencia) */
+.cyber-icon.risk { 
+  color: var(--danger); 
+  border-color: rgba(251, 113, 133, 0.3); 
+  background: rgba(251, 113, 133, 0.03); 
+}
+.skill-card:hover .cyber-icon.risk { 
+  border-color: var(--danger); 
+  background: rgba(251, 113, 133, 0.1); 
+  box-shadow: 0 0 15px rgba(251, 113, 133, 0.25); 
+  text-shadow: 0 0 8px var(--danger);
+}
+
+.cyber-icon.osint { 
+  color: var(--accent-2); 
+  border-color: rgba(129, 140, 248, 0.3); 
+  background: rgba(129, 140, 248, 0.03); 
+}
+.skill-card:hover .cyber-icon.osint { 
+  border-color: var(--accent-2); 
+  background: rgba(129, 140, 248, 0.1); 
+  box-shadow: 0 0 15px rgba(129, 140, 248, 0.25); 
+  text-shadow: 0 0 8px var(--accent-2);
+}
+
+.cyber-icon.dfir { 
+  color: var(--gold); 
+  border-color: rgba(251, 191, 36, 0.3); 
+  background: rgba(251, 191, 36, 0.03); 
+}
+.skill-card:hover .cyber-icon.dfir { 
+  border-color: var(--gold); 
+  background: rgba(251, 191, 36, 0.1); 
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.25); 
+  text-shadow: 0 0 8px var(--gold);
+}
+
+.cyber-icon.python { 
+  color: #34d399; 
+  border-color: rgba(52, 211, 153, 0.3); 
+  background: rgba(52, 211, 153, 0.03); 
+}
+.skill-card:hover .cyber-icon.python { 
+  border-color: #34d399; 
+  background: rgba(52, 211, 153, 0.1); 
+  box-shadow: 0 0 15px rgba(52, 211, 153, 0.25); 
+  text-shadow: 0 0 8px #34d399;
+}
+
+.cyber-icon.cloud { 
+  color: #38bdf8; 
+  border-color: rgba(56, 189, 248, 0.3); 
+  background: rgba(56, 189, 248, 0.03); 
+}
+.skill-card:hover .cyber-icon.cloud { 
+  border-color: #38bdf8; 
+  background: rgba(56, 189, 248, 0.1); 
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25); 
+  text-shadow: 0 0 8px #38bdf8;
+}
+
+.cyber-icon.network { 
+  color: #a78bfa; 
+  border-color: rgba(167, 139, 250, 0.3); 
+  background: rgba(167, 139, 250, 0.03); 
+}
+.skill-card:hover .cyber-icon.network { 
+  border-color: #a78bfa; 
+  background: rgba(167, 139, 250, 0.1); 
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.25); 
+  text-shadow: 0 0 8px #a78bfa;
+}
 /* Contacto */
 .contact-grid{ display:grid; grid-template-columns:minmax(0,1.4fr) minmax(240px,.8fr); gap:1.4rem; align-items:start; }
 .form-card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
@@ -610,3 +698,697 @@ body{
   .shield-defender { font-size: 2.5rem; top: -10%; }
 }
 
+
+
+/* --- LAYOUT GENERAL DEL BLOG --- */
+.blog-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* --- SIDEBAR VERTICAL (CATEGORÍAS) --- */
+.blog-sidebar {
+    position: sticky;
+    top: 2rem; /* Se queda fijo al hacer scroll */
+    align-self: start;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.category-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.category-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.category-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    transform: translateX(4px); /* Efecto moderno al pasar el ratón */
+}
+
+.category-link.active {
+    background: rgba(59, 130, 246, 0.15); /* Azul tech sutil */
+    color: #60a5fa;
+    font-weight: 500;
+    border-left: 3px solid #60a5fa;
+}
+
+.category-link .emoji {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.blog-header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 1.5rem;
+}
+
+.page-kicker {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+}
+
+.grad-text {
+    background: linear-gradient(90deg, #fff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-sub {
+    color: #9ca3af;
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.post-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.post-card:hover {
+    border-color: rgba(96, 165, 250, 0.4);
+    transform: translateY(-2px);
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 0.75rem;
+}
+
+.post-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255,255,255,0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.post-title {
+    font-size: 1.4rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.post-title a {
+    color: #f3f4f6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.post-title a:hover {
+    color: #60a5fa;
+}
+
+.post-excerpt {
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: gap 0.2s ease;
+}
+
+.read-more:hover {
+    gap: 0.6rem; /* La flecha se mueve al hacer hover */
+}
+
+/* --- PAGINACIÓN --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.page-link {
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.page-link:hover {
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.page-info {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #9ca3af;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(255,255,255,0.1);
+}
+
+/* --- RESPONSIVE (Móviles) --- */
+@media (max-width: 768px) {
+    .blog-layout {
+        grid-template-columns: 1fr; /* En móvil, todo en una columna */
+        gap: 1.5rem;
+    }
+    
+    .blog-sidebar {
+        position: static; /* Quitamos el sticky en móvil */
+    }
+    
+    .category-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .category-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
+
+/* ==========================================================================
+   PÁGINA DE CONTACTO
+   ========================================================================== */
+.contacto-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.contacto-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.contacto-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de barrido de luz al hacer hover */
+.contacto-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.contacto-card:hover::before {
+  left: 100%;
+}
+
+.contacto-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px -10px rgba(94, 234, 212, 0.2);
+}
+
+.contacto-card .cyber-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+}
+
+.contacto-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.contacto-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* --- FORMULARIO CYBER --- */
+.form-container {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+}
+
+.form-title {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.cyber-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.cyber-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.cyber-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cyber-input {
+  width: 100%;
+  background: rgba(7, 11, 21, 0.6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+/* IMPACTO: Glow al hacer foco en el input */
+.cyber-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.15), 0 0 15px rgba(94, 234, 212, 0.1);
+  background: rgba(7, 11, 21, 0.9);
+}
+
+.cyber-input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* Botón con efecto de pulso */
+.btn-glow {
+  width: 100%;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.btn-glow:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.btn-glow:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .cyber-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .form-container {
+    padding: 1.5rem;
+  }
+}
+/* ==========================================================================
+   FORMULARIO DE CONTACTO CYBER (Anti-Basura Edition 💎)
+   ========================================================================== */
+./* ==========================================================================
+   FORMULARIO DE CONTACTO: VERSIÓN DEFINITIVA E INFALIBLE 💎
+   ========================================================================== */
+
+.cyber-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.cyber-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.cyber-form label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* === FORZAR ESTILO OSCURO, GRANDE Y CON BORDES === */
+.cyber-form input,
+.cyber-form select,
+.cyber-form textarea,
+.cyber-input {
+  width: 100% !important;
+  min-height: 42px !important; /* Tamaño grande y cómodo para PC y móvil */
+  padding: 1rem 1.2rem !important;
+  background: rgba(7, 11, 21, 0.9) !important; /* Fondo oscuro forzado */
+  border: 1px solid var(--border) !important; /* Borde visible */
+  border-radius: var(--radius-sm) !important;
+  color: var(--text) !important; /* Texto claro */
+  font-size: 1.05rem !important; /* Texto grande y legible */
+  font-family: var(--font-body) !important;
+  box-sizing: border-box !important; /* CRUCIAL: evita que el padding rompa el ancho */
+  transition: all 0.3s ease !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* El área de texto debe ser más alta */
+.cyber-form textarea, textarea.cyber-input {
+  min-height: 160px !important;
+  resize: vertical !important;
+  line-height: 1.6 !important;
+}
+
+/* Placeholder sutil */
+.cyber-form input::placeholder,
+.cyber-form textarea::placeholder {
+  color: rgba(148, 163, 184, 0.5) !important;
+  font-style: italic;
+}
+
+/* Efecto FOCUS: El brillo neón al escribir */
+.cyber-form input:focus,
+.cyber-form select:focus,
+.cyber-form textarea:focus,
+.cyber-input:focus {
+  outline: none !important;
+  border-color: var(--accent) !important;
+  background: rgba(7, 11, 21, 1) !important;
+  box-shadow: 
+    0 0 0 4px rgba(94, 234, 212, 0.15),
+    0 0 25px rgba(94, 234, 212, 0.2) !important;
+}
+
+/* Flecha personalizada para el SELECT (Motivo) */
+.cyber-form select, select.cyber-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1.2rem center !important;
+  background-size: 1.2rem !important;
+  cursor: pointer !important;
+}
+
+/* Opciones del desplegable (para que no salgan blancas) */
+.cyber-form select option, select.cyber-input option {
+  background: #0b1120 !important;
+  color: #e7edf7 !important;
+  padding: 1rem !important;
+  font-size: 1rem !important;
+}
+
+/* Fila para Nombre y Email en PC */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* === RESPONSIVE: MÓVIL === */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr; /* Uno debajo del otro en móvil */
+    gap: 1.5rem;
+  }
+  
+  .cyber-form input,
+  .cyber-form select,
+  .cyber-form textarea,
+  .cyber-input {
+    font-size: 16px !important; /* 16px evita que iOS haga zoom automático */
+    padding: 1rem !important;
+  }
+}
+/* ==========================================================================
+   Iconos de habilidades en Sobre mí (estilo cyber)
+   ========================================================================== */
+
+.cyber-icon {
+    display: inline-block;
+    font-size: 1.6rem;        /* Tamaño grande para que resalten */
+    width: 2.2rem;
+    text-align: center;
+    color: var(--accent);     /* Color principal (verde aguamarina) */
+    filter: drop-shadow(0 0 6px rgba(94,234,212, 0.4));
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.skill-card:hover .cyber-icon {
+    transform: scale(1.3) rotate(-5deg);
+    filter: drop-shadow(0 0 14px rgba(94,234,212, 0.9));
+}
+
+/* Colores específicos para cada tipo de icono (opcional) */
+.cyber-icon.risk    { color: #fbbf24; }  /* amarillo */
+.cyber-icon.osint   { color: #60a5fa; }  /* azul */
+.cyber-icon.dfir    { color: #f87171; }  /* rojo */
+.cyber-icon.python  { color: #34d399; }  /* verde */
+.cyber-icon.cloud   { color: #a78bfa; }  /* morado */
+.cyber-icon.network { color: #f472b6; }  /* rosa */
+
+/* ==========================================================================
+   Hitos Formativos con estilo de circuito
+   ========================================================================== */
+
+.timeline {
+    border-left: 3px solid var(--accent);  /* Línea principal */
+    margin-left: 1rem;
+    padding-left: 2.5rem;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed rgba(94, 234, 212, 0.2);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.2rem;
+    top: 1rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 12px rgba(94, 234, 212, 0.6);
+    animation: pulse-dot 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-dot {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Líneas intermitentes entre los puntos (simulando circuito) */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -2.2rem;
+    top: 1.6rem;
+    width: 2px;
+    height: calc(100% - 1.6rem);
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0px,
+        var(--accent) 4px,
+        transparent 4px,
+        transparent 8px
+    );
+    opacity: 0.5;
+}
+
+.timeline-item:last-child::after {
+    display: none;
+}
+
+/* ==========================================================================
+   Cuadros de confianza (¿Por qué confiar en mí?)
+   ========================================================================== */
+
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.trust-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.trust-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px -12px rgba(94, 234, 212, 0.3);
+}
+
+.trust-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: var(--accent);
+}
+
+.trust-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Responsive: en móvil los cuadros se apilan */
+@media (max-width: 768px) {
+    .trust-grid {
+        grid-template-columns: 1fr;
+    }
+}

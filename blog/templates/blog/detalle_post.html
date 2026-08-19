@@ -3,53 +3,75 @@
 {% block title %}{{ post.titulo }} | sualba.dev{% endblock %}
 
 {% block content %}
+
 <article class="post-detail reveal">
+
+  <!-- Cabecera del artículo -->
   <header class="detail-head">
+
     <div class="detail-meta">
+
       <span class="cat-badge cat-{{ post.categoria|slugify }}">
+
         <span class="emoji" aria-hidden="true">
-          {% if post.categoria == "html" %}🟧
-          {% elif post.categoria == "css" %}🟦
-          {% elif post.categoria == "js" %}💛
-          {% elif post.categoria == "react" %}⚛️
-          {% elif post.categoria == "vue" %}🍃
-          {% elif post.categoria == "angular" %}🅰️
-          {% elif post.categoria == "backend" %}🖥️
-          {% elif post.categoria == "docker" %}🐳
-          {% elif post.categoria == "terminal" %}💻
-          {% elif post.categoria == "python" %}🐍
-          {% elif post.categoria == "chatgpt" %}🤖
-          {% elif post.categoria == "ia" %}🧠
-          {% elif post.categoria == "cyber" %}🔐
-          {% elif post.categoria == "startup" %}🚀
-          {% elif post.categoria == "excel" %}📊
-          {% elif post.categoria == "salesforce" %}☁️
-          {% elif post.categoria == "code" %}🧘
-          {% else %}📝{% endif %}
+          {{ post.get_categoria_emoji }}
         </span>
+
         {{ post.get_categoria_display }}
+
       </span>
-      <time class="post-date">{{ post.fecha_publicacion|date:"d \d\e F \d\e Y" }}</time>
-      <span class="post-date">👁️ {{ post.visitas }} visitas</span>
+
+
+      <time class="post-date">
+        {{ post.fecha_publicacion|date:"d \d\e F \d\e Y" }}
+      </time>
+
+
+      <span class="post-date">
+        👁️ {{ post.visitas }} visitas
+      </span>
+
     </div>
-    <h1>{{ post.titulo }}</h1>
+
+
+    <h1>
+      {{ post.titulo }}
+    </h1>
+
   </header>
 
+
+  <!-- Contenido completo del artículo -->
   <div class="detail-body">
+
     {{ post.contenido|linebreaks }}
+
   </div>
 
-  <nav class="detail-nav" aria-label="Navegación del artículo">
-    <a class="back-link" href="{% url 'blog:lista_posts' %}">← Volver al blog</a>
-    <a class="back-link" href="{% url 'blog:lado_coder' %}">Código de Vida ✨</a>
+
+  <!-- Navegación -->
+  <nav
+    class="detail-nav"
+    aria-label="Navegación del artículo"
+  >
+
+    <a
+      class="back-link"
+      href="{% url 'blog:lista_posts' %}"
+    >
+      ← Volver al blog
+    </a>
+
+
+    <a
+      class="back-link"
+      href="{% url 'blog:lado_coder' %}"
+    >
+      Código de Vida ✨
+    </a>
+
   </nav>
+
 </article>
+
 {% endblock %}
-
-
-              <script>
-                              
-              </script>
-                        </body>
-                        </html>
-             
