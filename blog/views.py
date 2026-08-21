@@ -11,7 +11,6 @@ from .models import Post, CATEGORIAS
 CATEGORIAS_VALIDAS = {slug for slug, _ in CATEGORIAS}
 CATEGORIAS_VALIDAS.add('all')
 
-
 def home_view(request):
     return render(request, 'blog/home.html')
 
@@ -119,3 +118,9 @@ def contacto_view(request):
     else:
         form = ContactoForm()
     return render(request, 'blog/contacto.html', {'form': form})
+
+def proyectos(request):
+    """
+    Vista para la página de proyectos / casos de estudio.
+    """
+    return render(request, 'blog/proyectos.html')

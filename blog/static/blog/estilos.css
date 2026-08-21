@@ -793,11 +793,6 @@ body{
     color: #fff;
 }
 
-.grad-text {
-    background: linear-gradient(90deg, #fff, #a5b4fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
 .page-sub {
     color: #9ca3af;
@@ -1128,11 +1123,9 @@ body{
   }
 }
 /* ==========================================================================
-   FORMULARIO DE CONTACTO CYBER (Anti-Basura Edition 💎)
+   FORMULARIO DE CONTACTO CYBER (💎)
    ========================================================================== */
-./* ==========================================================================
-   FORMULARIO DE CONTACTO: VERSIÓN DEFINITIVA E INFALIBLE 💎
-   ========================================================================== */
+
 
 .cyber-form {
   display: flex;
@@ -1325,27 +1318,6 @@ body{
     100% { transform: scale(1.4); opacity: 1; }
 }
 
-/* Líneas intermitentes entre los puntos (simulando circuito) */
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    left: -2.2rem;
-    top: 1.6rem;
-    width: 2px;
-    height: calc(100% - 1.6rem);
-    background: repeating-linear-gradient(
-        to bottom,
-        var(--accent) 0px,
-        var(--accent) 4px,
-        transparent 4px,
-        transparent 8px
-    );
-    opacity: 0.5;
-}
-
-.timeline-item:last-child::after {
-    display: none;
-}
 
 /* ==========================================================================
    Cuadros de confianza (¿Por qué confiar en mí?)
@@ -1391,4 +1363,141 @@ body{
     .trust-grid {
         grid-template-columns: 1fr;
     }
+}
+
+
+/* ==========================================================================
+   Página de Proyectos / Casos de Estudio
+   ========================================================================== */
+
+.proyectos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.proyecto-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.proyecto-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px -12px rgba(94, 234, 212, 0.3);
+}
+
+.proyecto-icon {
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.proyecto-card h2 {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+}
+
+.proyecto-subtitulo {
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.proyecto-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.proyecto-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 1.2rem;
+}
+
+.proyecto-tags li {
+    background: rgba(94, 234, 212, 0.12);
+    color: var(--accent);
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(94, 234, 212, 0.2);
+}
+
+.proyecto-lista {
+    list-style: none;
+    margin: 0.5rem 0 1rem;
+    padding: 0;
+}
+
+.proyecto-lista li {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed rgba(148, 163, 184, 0.1);
+}
+
+.proyecto-lista li:last-child {
+    border-bottom: none;
+}
+
+.proyecto-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.proyecto-acciones .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+}
+
+@media (max-width: 640px) {
+    .proyectos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   ESPACIADO Y JERARQUÍA EN SOBRE MÍ
+   ========================================================================== */
+
+/* Separación general entre bloques grandes */
+.about-hero {
+    margin-bottom: 3.5rem; /* Más separación debajo del hero */
+}
+
+.skills-grid {
+    margin: 2.5rem 0 3rem; /* Arriba y abajo */
+}
+
+.trust-grid {
+    margin-top: 1.5rem;
+}
+
+.section {
+    margin-bottom: 4rem; /* Aumentado de 3rem para más aire */
+}
+
+/* Espaciado dentro de los hitos formativos */
+.timeline {
+    margin-top: 1.5rem;
+    padding-left: 2.5rem;
+}
+
+/* Espaciado en el formulario de contacto */
+.contact-grid {
+    margin-top: 1.5rem;
 }

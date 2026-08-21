@@ -1,0 +1,159 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Casos de Estudio | sualba.dev{% endblock %}
+
+{% block content %}
+
+<section class="proyectos">
+  <div class="container">
+    <header class="page-head reveal">
+      <h1 class="page-title">Casos de <span class="grad-text">Estudio</span></h1>
+      <p class="page-sub">Proyectos que combinan auditoría, desarrollo, automatización e impacto social.</p>
+    </header>
+
+    <div class="proyectos-grid">
+
+<!-- PROYECTO 1: AUDITSYM -->
+<article class="proyecto-card reveal">
+ 
+  <h2> 🛡️ AuditSym</h2>
+  <p class="proyecto-subtitulo">GRC Intelligence · Auditoría automatizada · Local-First</p>
+
+  <p>
+    AuditSym es una plataforma <strong>open-source</strong> de auditoría y cumplimiento que unifica marcos como 
+    <strong>ISO 27001, NIST CSF y ENS</strong> en un flujo de trabajo práctico y visual. 
+    Diseñada para auditores, equipos de seguridad y responsables de cumplimiento que valoran la 
+    <strong>privacidad de los datos</strong> y la <strong>autonomía técnica</strong>.
+  </p>
+
+  <!-- Logros o métricas destacadas -->
+  <ul class="proyecto-logros">
+    <li>✅ Evaluación de controles con IA (local o cloud)</li>
+    <li>✅ Hallazgos, remediación y trazabilidad completa</li>
+    <li>✅ 7 idiomas · Offline-first · Sin dependencias externas</li>
+  </ul>
+
+  <ul class="proyecto-tags">
+    <li>Open Source</li>
+    <li>Python </li>
+    <li>GRC · Auditoría</li>
+    <li>Local-First</li>
+    <li>AI-powered</li>
+  </ul>
+
+  <div class="proyecto-acciones">
+    <a href="https://auditsym.com" target="_blank" class="btn btn-primary">🔗 Visitar AuditSym</a>
+    <a href="https://github.com/SUALBA/AuditSym" target="_blank" class="btn btn-ghost">💻 Código en GitHub</a>
+    <a href="{% url 'blog:lista_posts' %}?categoria=auditsym" class="btn btn-ghost">📝 Ver artículos relacionados</a>
+  </div>
+</article>
+
+      <!-- PROYECTO 2: OCIOY+ (PREMIO APPESIBILIDAD) -->
+<article class="proyecto-card reveal">
+   <h2> 🏅 OCIOY+</h2>
+  <p class="proyecto-subtitulo">Plataforma de ocio inclusivo · Accésit Appcesibilidad 2024</p>
+  <!-- 👇 AÑADE LA IMAGEN DEL PREMIO -->
+  <img src="{% static 'blog/premioAppcesibilidad.jpg' %}" alt="Certificado del Accésit Appcesibilidad 2024" style="width:100%; max-height:200px; object-fit:contain; margin: 1rem 0; border-radius: var(--radius-sm);">
+  <p>Proyecto galardonado con un <strong>Accésit en los Premios Appcesibilidad</strong> (DXC Technology & Human Age Institute), seleccionado entre el <strong>Top 7% Nacional</strong> de más de 475 propuestas.</p>
+  <ul class="proyecto-tags">
+    <li>Inclusión Digital</li>
+    <li>Voluntariado</li>
+    <li>Tecnología Social</li>
+    <li>Top 7%</li>
+  </ul>
+  <div class="proyecto-acciones">
+    
+ <a href="{% url 'blog:detalle_post' slug='ocioy' %}" class="btn btn-primary">📄 Leer la historia completa</a>
+  <a href="{% static 'blog/MEMORIA Appcesibilidad OCIOY.docx' %}" class="btn btn-ghost" download>📥 Descargar memoria</a>
+    <div class="proyecto-acciones">
+ </div>
+  </div>
+</article>
+
+      <!-- PROYECTO 3: LABORATORIO DE AUDITORÍA -->
+<article class="proyecto-card reveal">
+   <h2> 🧪 Auditoría de Ciberseguridad: De la vulnerabilidad a la remediación</h2>
+  <p class="proyecto-subtitulo">Proyecto final del Certificado Profesional de Seguridad Informática (MF0490_3)</p>
+
+  <!-- IMAGEN 1: DIAGRAMA DE FLUJO DE AUDITORÍA -->
+  <figure style="margin: 1rem 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border);">
+    <img src="{% static 'blog/FLUJO DE AUDITORIA PROYECTO CERTIF.jpg' %}" 
+         alt="Diagrama del flujo de auditoría" 
+         style="width:100%; height:auto; max-height:300px; object-fit:contain; background: #0b1120;">
+    <figcaption style="padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--muted); text-align: center;">
+      🔍 Flujo completo de la auditoría: desde el escaneo hasta la remediación
+    </figcaption>
+  </figure>
+
+  <p>
+    <strong>¿Y si pudieras ver un ciberataque antes de que ocurra?</strong> Este proyecto es exactamente eso: un laboratorio vivo donde simulo el ciclo completo de una auditoría de seguridad, desde el reconocimiento hasta la remediación, aplicando los mismos estándares que exigen las empresas (ISO 27001, NIST, MITRE ATT&amp;CK).
+  </p>
+
+  <p>
+    No es un ejercicio teórico. Es un <strong>entorno corporativo real</strong> que he construido desde cero, y he actuado como atacante (Red Team) y como defensor (Blue Team) para demostrar que entiendo ambos lados de la moneda.
+  </p>
+
+  <p><strong>Lo que he hecho:</strong></p>
+  <ul class="proyecto-lista">
+    <li>🔍 <strong>Reconocimiento:</strong> Escaneé la red con Nmap y encontré puertos vulnerables y servicios obsoletos.</li>
+    <li>⚔️ <strong>Explotación controlada:</strong> Usé Hydra para fuerza bruta SSH y Metasploit para explotar un backdoor en vsftpd, obteniendo acceso root.</li>
+    <li>🛡️ <strong>Detección y respuesta:</strong> Monté un SOC con Wazuh (SIEM) y Suricata (IDS), y detecté 1.416 eventos de red y 22 alertas críticas.</li>
+    <li>📊 <strong>Gobernanza:</strong> Mapeé cada hallazgo a ISO 27005, MITRE ATT&amp;CK y NIST 800-53, y propuse un plan de remediación priorizado.</li>
+  </ul>
+
+  <!-- IMAGEN 2: DASHBOARD DE WAZUH -->
+  <figure style="margin: 1rem 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border);">
+    <img src="{% static 'blog/25_dashboard wazuh.jpg' %}" 
+         alt="Dashboard de Wazuh" 
+         style="width:100%; height:auto; max-height:300px; object-fit:contain; background: #0b1120;">
+    <figcaption style="padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--muted); text-align: center;">
+      📊 Dashboard de Wazuh: 1.416 eventos de red y 22 alertas críticas detectadas
+    </figcaption>
+  </figure>
+
+  <p><strong>Los resultados hablan por sí solos:</strong></p>
+  <ul class="proyecto-lista">
+    <li>🔴 <strong>3 hallazgos críticos</strong> (backdoor vsftpd, credenciales SSH débiles, firewall desactivado).</li>
+    <li>📈 <strong>1.416 eventos</strong> de red detectados con Suricata.</li>
+    <li>⚠️ <strong>22 alertas críticas</strong> identificadas con Wazuh.</li>
+    <li>📋 <strong>Plan de remediación</strong> basado en ISO 27005, con priorización y controles específicos.</li>
+  </ul>
+
+  <p><strong>Lo que demuestra:</strong></p>
+  <ul class="proyecto-lista">
+    <li>✅ Que sé hacer <strong>pentesting ético</strong> (reconocimiento, explotación, post-explotación).</li>
+    <li>✅ Que sé configurar y operar un <strong>SOC</strong> (SIEM, IDS, análisis forense).</li>
+    <li>✅ Que sé gestionar <strong>riesgos y cumplimiento normativo</strong> (GRC).</li>
+    <li>✅ Que sé <strong>documentar</strong> y comunicar hallazgos técnicos a nivel de negocio.</li>
+  </ul>
+
+  <ul class="proyecto-tags">
+    <li>Auditoría</li>
+    <li>Pentesting</li>
+    <li>Wazuh</li>
+    <li>ISO 27001</li>
+    <li>NIST</li>
+    <li>MITRE ATT&amp;CK</li>
+    <li>Blue Team</li>
+    <li>SOC</li>
+  </ul>
+
+  <div class="proyecto-acciones">
+         <!-- Enlace al PDF (el principal) -->
+    <a href="{% static 'blog/Susana_Alba_ProyectoFinalCursoCertifSeguridadInformatica2026.pdf' %}" 
+       target="_blank" 
+       class="btn btn-primary">
+      📄 Ver informe completo (PDF)
+    </a>
+    <a href="https://github.com/SUALBA/auditoria-ciberseguridad-2026" target="_blank" class="btn btn-ghost">
+      💻 Ver en GitHub
+    </a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7489542891695034368/" target="_blank" class="btn btn-ghost">
+      🔗 Ver publicación en LinkedIn
+    </a>
+  </div>
+</article>
+</section>
+
+{% endblock %}
