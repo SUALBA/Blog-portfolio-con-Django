@@ -50,7 +50,7 @@
         <a href="{% url 'blog:lista_posts' %}" class="{% if request.path == '/' %}active{% endif %}">Inicio</a>
         <a href="{% url 'blog:sobre_mi' %}" class="{% if '/sobre-mi' in request.path %}active{% endif %}">Sobre mí</a>
         <a href="https://auditsym.com" class="nav-special" target="_blank" rel="noopener">AuditSym 🛡️</a>
-        <a href="/proyectos/">Casos de Estudio</a>
+        <a href="/proyectos/">Proyectos</a>
         <a href="{% url 'blog:lista_posts' %}" class="{% if '/post/' in request.path or '/codigo-de-vida' in request.path %}active{% endif %}">Blog</a>
         <a href="/contacto/">Contacto</a>
       </nav>
