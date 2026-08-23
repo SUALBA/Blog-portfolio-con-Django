@@ -6,15 +6,25 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import MensajeForm, ContactoForm
 from .models import Post, CATEGORIAS
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 # Categorías válidas
 CATEGORIAS_VALIDAS = {slug for slug, _ in CATEGORIAS}
 CATEGORIAS_VALIDAS.add('all')
-
 def home_view(request):
-    return render(request, 'blog/home.html')
+    populares = Post.objects.order_by('-visitas')[:5]
 
+    if not populares.exists():
+        populares = Post.objects.order_by('-fecha_publicacion')[:5]
 
+    return render(
+        request,
+        'blog/home.html',
+        {
+            'populares': populares,
+        }
+    )
 class DetallePostView(DetailView):
     model = Post
     template_name = 'blog/detalle_post.html'
@@ -124,3 +134,18 @@ def proyectos(request):
     Vista para la página de proyectos / casos de estudio.
     """
     return render(request, 'blog/proyectos.html')
+
+@require_POST
+def signal_post(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+        post.signals += 1
+        post.save(update_fields=['signals'])
+
+        return JsonResponse({
+            'ok': True,
+            'signals': post.signals
+        })
+
+    except Post.DoesNotExist:
+        return JsonResponse({'ok': False}, status=404)

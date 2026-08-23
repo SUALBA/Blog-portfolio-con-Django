@@ -1501,3 +1501,50 @@ body{
 .contact-grid {
     margin-top: 1.5rem;
 }
+
+/* =========================================================
+   ✦ SIGNAL — CYBER LIKE
+   ========================================================= */
+
+.signal-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .28rem .55rem;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .035);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.signal-star {
+    font-size: 1.1rem;
+    transition:
+        color .25s ease,
+        text-shadow .25s ease,
+        transform .25s ease;
+}
+
+.signal-button:hover {
+    transform: translateY(-2px);
+}
+
+.signal-button.signaled {
+    border-color: #39ff88;
+    box-shadow: 0 0 18px rgba(57, 255, 136, .18);
+}
+
+.signal-button.signaled .signal-star {
+    color: #39ff88;
+    text-shadow:
+        0 0 6px #39ff88,
+        0 0 14px #39ff88,
+        0 0 24px rgba(57, 255, 136, .75);
+    transform: scale(1.2) rotate(12deg);
+}

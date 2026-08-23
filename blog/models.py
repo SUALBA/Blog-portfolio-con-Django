@@ -76,7 +76,7 @@ class Post(models.Model):
     )
 
     visitas = models.PositiveIntegerField(default=0)
-
+    signals = models.PositiveIntegerField(default=0)
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.titulo)

@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load markdown_extras %}
 
 {% block title %}{{ post.titulo }} | sualba.dev{% endblock %}
 
@@ -30,6 +31,17 @@
       <span class="post-date">
         👁️ {{ post.visitas }} visitas
       </span>
+      <button
+    id="signal-button"
+    class="signal-button"
+    data-post-id="{{ post.pk }}"
+    data-url="{% url 'blog:signal_post' post.pk %}"
+    type="button"
+    aria-label="Enviar una señal a este artículo">
+    <span class="signal-star">✦</span>
+    <span id="signal-count">{{ post.signals }}</span>
+    <span class="signal-label">Señales</span>
+     </button>
 
     </div>
 
@@ -44,7 +56,7 @@
   <!-- Contenido completo del artículo -->
   <div class="detail-body">
 
-    {{ post.contenido|linebreaks }}
+    {{ post.contenido|markdownify }}
 
   </div>
 
@@ -73,5 +85,50 @@
   </nav>
 
 </article>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('signal-button');
+
+    if (!button) return;
+
+    const postId = button.dataset.postId;
+    const storageKey = `sualba_signal_${postId}`;
+
+    if (localStorage.getItem(storageKey)) {
+        button.classList.add('signaled');
+    }
+
+    button.addEventListener('click', async function () {
+
+        if (localStorage.getItem(storageKey)) {
+            return;
+        }
+
+        try {
+            const response = await fetch(button.dataset.url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            if (!response.ok) return;
+
+            const data = await response.json();
+
+            if (data.ok) {
+                document.getElementById('signal-count').textContent = data.signals;
+
+                button.classList.add('signaled');
+                localStorage.setItem(storageKey, 'true');
+            }
+
+        } catch (error) {
+            console.error('Signal error:', error);
+        }
+    });
+});
+</script>
 
 {% endblock %}

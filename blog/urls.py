@@ -16,6 +16,7 @@ urlpatterns = [
     path('sobre-mi/', SobreMiView.as_view(), name='sobre_mi'),
     path('codigo-de-vida/', LadoCoderView.as_view(), name='lado_coder'),
     path('post/<slug:slug>/', DetallePostView.as_view(), name='detalle_post'),
+    path('post/<int:pk>/signal/', views.signal_post, name='signal_post'),
     path('contacto/', views.contacto_view, name='contacto'),
      path('proyectos/', views.proyectos, name='proyectos'),
 ]
