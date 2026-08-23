@@ -2,6 +2,7 @@
 {% load markdown_extras %}
 
 {% block title %}{{ post.titulo }} | sualba.dev{% endblock %}
+{% block body_class %}{% if post.categoria == 'code' %}page-vida{% endif %}{% endblock %}
 
 {% block content %}
 
@@ -59,6 +60,115 @@
     {{ post.contenido|markdownify }}
 
   </div>
+
+
+  {% if es_codigo_de_vida %}
+    <section id="conversacion" class="vida-conversacion" aria-labelledby="conversacion-titulo">
+      <header class="conversacion-head">
+        <span class="conversacion-kicker">✦ Conversación abierta</span>
+        <h2 id="conversacion-titulo">Ahora te toca a ti 💫</h2>
+        <p>
+          ¿Qué opinas sobre este tema? Comparte tu experiencia o punto de vista
+          y participa en la conversación.
+        </p>
+      </header>
+
+      {% if messages %}
+        <div class="conversacion-mensajes" aria-live="polite">
+          {% for message in messages %}
+            <div class="form-ok">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if comentarios %}
+        <div class="comentarios-lista" aria-label="Opiniones publicadas">
+          {% for comentario in comentarios %}
+            <article class="comentario-card">
+              <div class="comentario-meta">
+                <strong>{{ comentario.nombre }}</strong>
+                <time datetime="{{ comentario.fecha|date:'c' }}">
+                  {{ comentario.fecha|date:"d/m/Y" }}
+                </time>
+              </div>
+              <p>{{ comentario.contenido|linebreaksbr }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="comentarios-vacio">
+          ✧ Todavía no hay opiniones publicadas. Puedes abrir la conversación.
+        </p>
+      {% endif %}
+
+      <form method="post" class="comentario-form cyber-form" novalidate>
+        {% csrf_token %}
+
+        {% if comentario_form.non_field_errors %}
+          <div class="form-errors" role="alert">
+            {{ comentario_form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="comentario-grid">
+          <div class="form-group">
+            <label for="{{ comentario_form.nombre.id_for_label }}">
+              {{ comentario_form.nombre.label }}
+            </label>
+            {{ comentario_form.nombre }}
+            {{ comentario_form.nombre.errors }}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ comentario_form.email.id_for_label }}">
+              {{ comentario_form.email.label }}
+            </label>
+            {{ comentario_form.email }}
+            {{ comentario_form.email.errors }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ comentario_form.contenido.id_for_label }}">
+            {{ comentario_form.contenido.label }}
+          </label>
+          {{ comentario_form.contenido }}
+          {{ comentario_form.contenido.errors }}
+          <small>Máximo 1.500 caracteres.</small>
+        </div>
+
+        <div class="comentario-honeypot-wrap" aria-hidden="true">
+          {{ comentario_form.website }}
+        </div>
+
+        <div class="comentario-check">
+          {{ comentario_form.autoriza_mencion }}
+          <label for="{{ comentario_form.autoriza_mencion.id_for_label }}">
+            Autorizo a Susana a mencionar mi nombre o alias si esta aportación
+            inspira una futura publicación.
+          </label>
+        </div>
+        {{ comentario_form.autoriza_mencion.errors }}
+
+        <div class="comentario-check">
+          {{ comentario_form.privacidad }}
+          <label for="{{ comentario_form.privacidad.id_for_label }}">
+            He leído y acepto el aviso de privacidad.
+          </label>
+        </div>
+        {{ comentario_form.privacidad.errors }}
+
+        <p class="comentario-aviso">
+          Tu opinión será revisada antes de publicarse. Tu correo electrónico
+          no se mostrará y solo se utilizará para gestionar esta conversación.
+        </p>
+
+        <button type="submit" class="btn btn-primary">
+          Compartir mi opinión ✦
+        </button>
+      </form>
+    </section>
+  {% endif %}
 
 
   <!-- Navegación -->

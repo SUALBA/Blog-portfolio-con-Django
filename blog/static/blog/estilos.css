@@ -1548,3 +1548,191 @@ body{
         0 0 24px rgba(57, 255, 136, .75);
     transform: scale(1.2) rotate(12deg);
 }
+
+/* ================================================================
+   CÓDIGO DE VIDA · CONVERSACIÓN MODERADA
+   ================================================================ */
+.vida-conversacion {
+  margin-top: 3rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid rgba(251, 191, 36, .28);
+}
+
+.conversacion-head {
+  margin-bottom: 1.6rem;
+}
+
+.conversacion-kicker {
+  display: inline-block;
+  margin-bottom: .55rem;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.conversacion-head h2 {
+  margin: 0 0 .65rem;
+  font-size: clamp(1.55rem, 4vw, 2.15rem);
+}
+
+.conversacion-head p,
+.comentario-aviso,
+.comentarios-vacio {
+  color: var(--muted);
+}
+
+.conversacion-mensajes {
+  margin: 0 0 1.25rem;
+}
+
+.comentarios-lista {
+  display: grid;
+  gap: 1rem;
+  margin: 1.4rem 0 2rem;
+}
+
+.comentario-card {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(251, 191, 36, .2);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgba(251, 191, 36, .055), var(--card));
+}
+
+.comentario-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .65rem;
+}
+
+.comentario-meta strong {
+  color: var(--gold);
+}
+
+.comentario-meta time {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: .75rem;
+}
+
+.comentario-card p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.comentarios-vacio {
+  margin: 1.2rem 0 1.8rem;
+  padding: 1rem 1.1rem;
+  border-left: 2px solid rgba(251, 191, 36, .48);
+  background: rgba(251, 191, 36, .04);
+}
+
+.comentario-form {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.15rem, 4vw, 1.7rem);
+  border: 1px solid rgba(251, 191, 36, .26);
+  border-radius: var(--radius);
+  background: rgba(7, 11, 21, .62);
+  box-shadow: 0 18px 50px -36px rgba(251, 191, 36, .7);
+}
+
+.comentario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.comentario-form .form-group {
+  display: grid;
+  gap: .45rem;
+}
+
+.comentario-form label {
+  font-size: .86rem;
+  font-weight: 650;
+}
+
+.comentario-form small {
+  color: var(--muted);
+}
+
+.comentario-check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: .65rem;
+}
+
+.comentario-check input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: .2rem;
+  accent-color: var(--gold);
+}
+
+/* La regla global de .cyber-form usa !important y convierte todos los inputs
+   en cajas de texto. Restauramos únicamente los checkbox de Código de Vida. */
+.comentario-form .comentario-check input[type="checkbox"] {
+  width: 1.1rem !important;
+  height: 1.1rem !important;
+  min-height: 0 !important;
+  flex: 0 0 1.1rem !important;
+  margin: .18rem 0 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 3px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  accent-color: var(--gold) !important;
+  -webkit-appearance: checkbox !important;
+  appearance: auto !important;
+}
+
+.comentario-check label {
+  color: var(--muted);
+  font-weight: 450;
+  line-height: 1.55;
+}
+
+.comentario-aviso {
+  margin: 0;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.comentario-form .errorlist,
+.form-errors {
+  margin: 0;
+  padding: .75rem 1rem;
+  list-style: none;
+  border: 1px solid rgba(248, 113, 113, .45);
+  border-radius: 10px;
+  background: rgba(248, 113, 113, .08);
+  color: #fca5a5;
+  font-size: .84rem;
+}
+
+.comentario-honeypot-wrap {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 650px) {
+  .comentario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comentario-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .25rem;
+  }
+}

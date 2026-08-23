@@ -1,3 +1,4 @@
+
 # blog/models.py
 from django.db import models
 from django.utils import timezone
@@ -133,8 +134,6 @@ class Post(models.Model):
         return self.titulo
 
 
-from django.db import models
-
 class Mensaje(models.Model):
     nombre = models.CharField(max_length=100)
     email = models.EmailField(default="")  # ← Añade default=""
@@ -156,3 +155,37 @@ class Mensaje(models.Model):
 
     def __str__(self):
         return f"Mensaje de {self.nombre} - {self.motivo}"
+
+
+class Comentario(models.Model):
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comentarios'
+    )
+    nombre = models.CharField('Nombre o alias', max_length=80)
+    email = models.EmailField(
+        'Correo electrónico',
+        help_text='No se mostrará públicamente.'
+    )
+    contenido = models.TextField('Tu opinión', max_length=1500)
+    fecha = models.DateTimeField(auto_now_add=True)
+    aprobado = models.BooleanField(default=False)
+    autoriza_mencion = models.BooleanField(
+        'Autorizo que se mencione mi nombre o alias',
+        default=False,
+        help_text=(
+            'Permite mencionar esta aportación en una futura publicación. '
+            'El correo electrónico nunca se publicará.'
+        )
+    )
+
+    class Meta:
+        ordering = ['fecha']
+        verbose_name = 'comentario'
+        verbose_name_plural = 'comentarios'
+
+    def __str__(self):
+        return f'{self.nombre} en {self.post.titulo}'
+
+    

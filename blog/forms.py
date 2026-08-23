@@ -1,5 +1,5 @@
 from django import forms
-from .models import Mensaje
+from .models import Comentario, Mensaje
 
 # ==========================================================================
 # 1. Formulario para la página "Sobre mí" (Más simple y directo)
@@ -43,3 +43,54 @@ class ContactoForm(forms.ModelForm):
                 'class': 'cyber-input'
             }),
         }
+
+
+class ComentarioForm(forms.ModelForm):
+    privacidad = forms.BooleanField(
+        required=True,
+        label='He leído y acepto el aviso de privacidad.'
+    )
+    # Campo trampa: debe permanecer vacío para una persona real.
+    website = forms.CharField(
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={
+            'tabindex': '-1',
+            'autocomplete': 'off',
+            'class': 'comentario-honeypot',
+            'aria-hidden': 'true',
+        })
+    )
+
+    class Meta:
+        model = Comentario
+        fields = [
+            'nombre',
+            'email',
+            'contenido',
+            'autoriza_mencion',
+        ]
+        widgets = {
+            'nombre': forms.TextInput(attrs={
+                'class': 'cyber-input',
+                'placeholder': 'Tu nombre o alias',
+                'autocomplete': 'name',
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'cyber-input',
+                'placeholder': 'tu@email.com (no será público)',
+                'autocomplete': 'email',
+            }),
+            'contenido': forms.Textarea(attrs={
+                'class': 'cyber-input',
+                'rows': 6,
+                'maxlength': 1500,
+                'placeholder': 'Comparte tu experiencia o punto de vista…',
+            }),
+        }
+
+    def clean_website(self):
+        value = self.cleaned_data.get('website', '')
+        if value:
+            raise forms.ValidationError('No se pudo enviar el comentario.')
+        return value

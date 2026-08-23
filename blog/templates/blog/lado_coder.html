@@ -39,4 +39,22 @@
       </div>
     {% endfor %}
   </div>
+
+  {% if page_obj.has_other_pages %}
+    <nav class="pagination" aria-label="Paginación de Código de Vida">
+      {% if page_obj.has_previous %}
+        <a class="page-link" href="?page=1">« Primera</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">‹ Anterior</a>
+      {% endif %}
+
+      <span class="page-info">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente ›</a>
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última »</a>
+      {% endif %}
+    </nav>
+  {% endif %}
 {% endblock %}

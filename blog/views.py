@@ -1,10 +1,11 @@
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.conf import settings
-from .forms import MensajeForm, ContactoForm
+from .forms import ComentarioForm, MensajeForm, ContactoForm
 from .models import Post, CATEGORIAS
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -32,9 +33,58 @@ class DetallePostView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        obj.visitas += 1
-        obj.save(update_fields=['visitas'])
+        if self.request.method == 'GET':
+            obj.visitas += 1
+            obj.save(update_fields=['visitas'])
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['es_codigo_de_vida'] = self.object.categoria == 'code'
+        if context['es_codigo_de_vida']:
+            context['comentarios'] = self.object.comentarios.filter(aprobado=True)
+            context['comentario_form'] = kwargs.get(
+                'comentario_form',
+                ComentarioForm()
+            )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        if self.object.categoria != 'code':
+            messages.error(
+                request,
+                'Los comentarios están disponibles en Código de Vida.'
+            )
+            return redirect(self.object.get_absolute_url())
+
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.post = self.object
+            comentario.save()
+
+            send_mail(
+                subject=f'Nueva opinión pendiente en: {self.object.titulo}',
+                message=(
+                    f'Nombre o alias: {comentario.nombre}\n'
+                    f'Email: {comentario.email}\n'
+                    f'Autoriza mención: {"Sí" if comentario.autoriza_mencion else "No"}\n\n'
+                    f'Comentario:\n{comentario.contenido}'
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=['sualba.dev@gmail.com'],
+                fail_silently=True,
+            )
+            messages.success(
+                request,
+                '💫 Gracias por participar. Tu opinión se publicará después de ser revisada.'
+            )
+            return redirect(f'{self.object.get_absolute_url()}#conversacion')
+
+        context = self.get_context_data(comentario_form=form)
+        return self.render_to_response(context)
 
 
 class PostListView(ListView):
@@ -104,6 +154,7 @@ class LadoCoderView(ListView):
     model = Post
     template_name = 'blog/lado_coder.html'
     context_object_name = 'posts'
+    paginate_by = 7
 
     def get_queryset(self):
         return Post.objects.filter(categoria='code').order_by('-fecha_publicacion')
