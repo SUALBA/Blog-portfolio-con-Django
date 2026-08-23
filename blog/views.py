@@ -1,4 +1,3 @@
-
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
 from django.contrib import messages
@@ -10,8 +9,9 @@ from .models import Post, CATEGORIAS
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-# Categorías válidas
-CATEGORIAS_VALIDAS = {slug for slug, _ in CATEGORIAS}
+# Categorías válidas del blog técnico. "code" pertenece exclusivamente a
+# Código de Vida y no debe aparecer en la bitácora técnica.
+CATEGORIAS_VALIDAS = {slug for slug, _ in CATEGORIAS if slug != 'code'}
 CATEGORIAS_VALIDAS.add('all')
 def home_view(request):
     populares = Post.objects.order_by('-visitas')[:5]
@@ -94,7 +94,12 @@ class PostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        qs = super().get_queryset().order_by('-fecha_publicacion')
+        qs = (
+            super()
+            .get_queryset()
+            .exclude(categoria='code')
+            .order_by('-fecha_publicacion')
+        )
         categoria = self.request.GET.get('categoria', 'all')
         if categoria != 'all' and categoria in CATEGORIAS_VALIDAS:
             qs = qs.filter(categoria=categoria)
@@ -113,14 +118,22 @@ class PostListView(ListView):
             'code': '🧘',
         }
         # Crear lista de categorías con su emoji
-        categorias_con_iconos = [(slug, nombre, emojis.get(slug, '◈')) for slug, nombre in CATEGORIAS]
+        categorias_con_iconos = [
+            (slug, nombre, emojis.get(slug, '◈'))
+            for slug, nombre in CATEGORIAS
+            if slug != 'code'
+        ]
         context['categorias'] = categorias_con_iconos
         context['categoria_seleccionada'] = self.request.GET.get('categoria', 'all')
 
         # Populares
-        populares = Post.objects.order_by('-visitas')[:5]
+        populares = Post.objects.exclude(categoria='code').order_by('-visitas')[:5]
         if not populares.exists():
-            populares = Post.objects.order_by('-fecha_publicacion')[:5]
+            populares = (
+                Post.objects
+                .exclude(categoria='code')
+                .order_by('-fecha_publicacion')[:5]
+            )
         context['populares'] = populares
 
         return context
